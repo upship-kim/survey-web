@@ -1,38 +1,44 @@
 import React from 'react';
 import styled from 'styled-components';
+import { OneCardTypes, OneQuestionTypes } from '../../types/SelectTypes';
+import ArrowIcon from '../atoms/ArrowIcon';
 import DefaultText from '../atoms/DefaultText';
+import DropContent from '../molecures/DropContent';
 
 interface CardDropProps {
     index: number;
     title: string;
+    rowDatas?: any;
     isActive: boolean;
     onClick: () => void;
 }
 
-const CardDrop = ({ index, isActive, title, onClick }: CardDropProps) => {
+const SurveyCard = ({
+    index,
+    isActive,
+    title,
+    onClick,
+    rowDatas,
+}: CardDropProps) => {
     return (
         <>
             <StyledCard isActive={isActive} onClick={onClick}>
-                <StyledBox className="cube" isActive={isActive}>
+                <IndexBlock className="cube" isActive={isActive}>
                     {index + 1}
-                </StyledBox>
-                <StyledTitleBox>
+                </IndexBlock>
+                <TitleBlock>
                     <DefaultText text={title} size="large" />
-                </StyledTitleBox>
-                <StyledArrowBox />
+                </TitleBlock>
+                <IconBlock>
+                    <ArrowIcon isActive={isActive} />
+                </IconBlock>
             </StyledCard>
-            {isActive && (
-                <div>
-                    안녕하세요 !!!!
-                    <br />
-                    안녕하세요 !!!!
-                </div>
-            )}
+            {isActive && <DropContent rowDatas={rowDatas} />}
         </>
     );
 };
 
-export default CardDrop;
+export default SurveyCard;
 
 const StyledCard = styled.div<{ isActive: boolean }>`
     display: flex;
@@ -44,7 +50,7 @@ const StyledCard = styled.div<{ isActive: boolean }>`
     border-radius: 10px;
     overflow: hidden;
     background-color: #f5f5dc;
-    margin: 1rem 0;
+    margin: 0.4rem 0;
     border: ${({ isActive }) => (isActive ? '1px solid #d8a23a' : '0px')};
     cursor: pointer;
 
@@ -55,7 +61,7 @@ const StyledCard = styled.div<{ isActive: boolean }>`
         }
     }
 `;
-const StyledBox = styled.div<{ isActive: boolean }>`
+const IndexBlock = styled.div<{ isActive: boolean }>`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,7 +72,7 @@ const StyledBox = styled.div<{ isActive: boolean }>`
     background-color: ${({ isActive }) => (isActive ? '#d8a23a' : '#8eb3a2')};
 `;
 
-const StyledTitleBox = styled.div`
+const TitleBlock = styled.div`
     display: flex;
     align-items: center;
     justify-content: left;
@@ -75,7 +81,7 @@ const StyledTitleBox = styled.div`
     padding: 1rem;
     width: 100%;
 `;
-const StyledArrowBox = styled.div`
+const IconBlock = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;

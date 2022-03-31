@@ -1,6 +1,65 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import CardDrop from '../molecures/CardDrop';
+import { OneCardTypes, OneQuestionTypes } from '../../types/SelectTypes';
+import SurveyCard from './SurveyCard';
+
+const rowDatas = {
+    data: [
+        {
+            title: '주방 공사 선택',
+            type: 1,
+            options: [
+                {
+                    name: '냉장고',
+                    innerArrayContents: {
+                        type: 1,
+                        options: [
+                            {
+                                name: '한쪽냉장고',
+                                img: '',
+                            },
+                            {
+                                name: '양문형냉장고',
+                                img: '',
+                            },
+                            {
+                                name: '아이스박스',
+                                img: '',
+                            },
+                        ],
+                    },
+                },
+                {
+                    name: '식탁',
+                    innerArrayContents: {
+                        type: 1,
+                        options: [
+                            {
+                                name: '아일랜드형',
+                                img: '',
+                            },
+                            {
+                                name: '한국형',
+                                img: '',
+                            },
+                            {
+                                name: '석기시대형',
+                                img: '',
+                            },
+                        ],
+                    },
+                },
+                {
+                    name: '가스레인지',
+                },
+            ],
+        },
+        {
+            title: '기타 공사',
+            type: 0,
+        },
+    ],
+};
 
 const temp = [
     { title: '비교견적' },
@@ -13,7 +72,6 @@ const temp = [
 ];
 
 const SelectForm = () => {
-    const ACTIVE_NUM = 2;
     const [active, setActive] = useState<number | null>(null);
 
     const onClick = (index: number) => {
@@ -26,14 +84,14 @@ const SelectForm = () => {
     return (
         <Wrapper>
             {temp.map((item, index) => (
-                <div>
-                    <CardDrop
-                        index={index}
-                        title={item.title}
-                        isActive={index === active}
-                        onClick={() => onClick(index)}
-                    />
-                </div>
+                <SurveyCard
+                    key={index}
+                    index={index}
+                    title={item.title}
+                    rowDatas={rowDatas}
+                    isActive={index === active}
+                    onClick={() => onClick(index)}
+                />
             ))}
         </Wrapper>
     );
