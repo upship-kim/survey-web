@@ -1,0 +1,167 @@
+import moment from 'moment';
+export const requestForm = [
+    {
+        id: 0,
+        title: '고객명',
+        isRequire: true,
+        type: 'input',
+        props: {
+            type: 'text',
+            name: 'customName',
+        },
+    },
+    {
+        id: 1,
+        title: '연락처',
+        isRequire: true,
+        type: 'input',
+        props: {
+            type: 'tell',
+            name: 'phone',
+        },
+    },
+    {
+        id: 2,
+        title: '이메일',
+        isRequire: true,
+        type: 'input',
+        props: {
+            type: 'email',
+            name: 'email',
+        },
+    },
+    {
+        id: 3,
+        title: '공사현장주소',
+        isRequire: true,
+        type: 'input',
+        props: {
+            type: 'text',
+            name: 'address',
+        },
+    },
+    {
+        id: 4,
+        title: '건물구분',
+        isRequire: true,
+        type: 'select',
+        props: {
+            name: 'building',
+            options: [
+                { value: '아파트' },
+                { value: '오피스텔' },
+                { value: '빌라' },
+                { value: '단독주택' },
+                { value: '상가' },
+            ],
+        },
+    },
+    {
+        id: 5,
+        title: '공사예정일',
+        isRequire: true,
+        type: 'input',
+        props: {
+            type: 'date',
+            name: 'date',
+            value: moment().format('yyyy-MM-DD'),
+            min: moment().format('yyyy-MM-DD'),
+        },
+    },
+    {
+        id: 6,
+        title: '예산',
+        isRequire: true,
+        type: 'select',
+        props: {
+            name: 'fee',
+            options: [
+                { value: '1,000만원 이하' },
+                { value: '1,000만원 ~ 2,000만원' },
+                { value: '3,000만원 ~ 4,000만원' },
+                { value: '4,000만원 ~ 5,000만원' },
+                { value: '5,000만원 ~ 6,000만원' },
+                { value: '6,000만원 이상' },
+            ],
+        },
+    },
+    {
+        id: 7,
+        title: '침실개수',
+        isRequire: true,
+        type: 'select',
+        props: {
+            name: 'bedRoomCount',
+            options: [
+                { value: '1개' },
+                { value: '2개' },
+                { value: '3개' },
+                { value: '4개' },
+                { value: '5개' },
+                { value: '6개' },
+                { value: '7개' },
+                { value: '8개' },
+                { value: '9개' },
+                { value: '10개' },
+            ],
+        },
+    },
+    {
+        id: 8,
+        title: '화장실 개수',
+        isRequire: true,
+        type: 'select',
+        props: {
+            name: 'restRoomCount',
+            options: [
+                { value: '1개' },
+                { value: '2개' },
+                { value: '3개' },
+                { value: '4개' },
+                { value: '5개' },
+                { value: '6개' },
+                { value: '7개' },
+                { value: '8개' },
+                { value: '9개' },
+                { value: '10개' },
+            ],
+        },
+    },
+    {
+        id: 9,
+        title: '분양면적',
+        isRequire: true,
+        type: 'input',
+        props: {
+            name: 'salesArea',
+            placeholder: '단위: 평형',
+        },
+    },
+    {
+        id: 10,
+        title: '전용면적',
+        isRequire: true,
+        type: 'input',
+        props: {
+            name: 'actureArea',
+            placeholder: '단위: 평형',
+        },
+    },
+    {
+        id: 11,
+        title: '연락가능시간',
+        isRequire: true,
+        type: 'select',
+        props: {
+            name: 'callTime',
+            options: [
+                { value: '상시 가능' },
+                { value: '오전(09시 이전)' },
+                { value: '오전(09시 ~ 12시)' },
+                { value: '점심시간(12시 ~ 13시)' },
+                { value: '오후(13시 ~ 18시)' },
+                { value: '오후(18시 이후)' },
+            ],
+        },
+    },
+];
