@@ -1,10 +1,15 @@
-import React from 'react';
+import React from "react";
+import { RecoilRoot } from "recoil";
 
-import './App.css';
-import SurveyPage from './components/pages/SurveyPage';
+import "./App.css";
+import SurveyPage from "./components/pages/SurveyPage";
 
 function App() {
-    return <SurveyPage />;
+    return (
+        <RecoilRoot>
+            <SurveyPage />
+        </RecoilRoot>
+    );
 }
 
 export default App;

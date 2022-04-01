@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import { OneCardTypes, OneQuestionTypes } from '../../types/SelectTypes';
-import ArrowIcon from '../atoms/ArrowIcon';
-import DefaultText from '../atoms/DefaultText';
-import DropContent from '../molecures/DropContent';
+import React from "react";
+import styled from "styled-components";
+import { OneCardTypes } from "../../types/SelectTypes";
+import ArrowIcon from "../atoms/ArrowIcon";
+import DefaultText from "../atoms/DefaultText";
+import DropBox from "../molecures/DropBox";
 
 interface CardDropProps {
     index: number;
     title: string;
-    rowDatas?: any;
+    data?: OneCardTypes;
     isActive: boolean;
     onClick: () => void;
 }
@@ -18,7 +18,7 @@ const SurveyCard = ({
     isActive,
     title,
     onClick,
-    rowDatas,
+    data,
 }: CardDropProps) => {
     return (
         <>
@@ -33,7 +33,9 @@ const SurveyCard = ({
                     <ArrowIcon isActive={isActive} />
                 </IconBlock>
             </StyledCard>
-            {isActive && <DropContent rowDatas={rowDatas} />}
+            {isActive && data !== undefined && (
+                <DropBox data={data} cardIndex={index} />
+            )}
         </>
     );
 };
@@ -51,7 +53,7 @@ const StyledCard = styled.div<{ isActive: boolean }>`
     overflow: hidden;
     background-color: #f5f5dc;
     margin: 0.4rem 0;
-    border: ${({ isActive }) => (isActive ? '1px solid #d8a23a' : '0px')};
+    border: ${({ isActive }) => (isActive ? "1px solid #d8a23a" : "0px")};
     cursor: pointer;
 
     &:hover {
@@ -69,7 +71,7 @@ const IndexBlock = styled.div<{ isActive: boolean }>`
     height: 2rem;
     padding: 1rem;
     width: 3rem;
-    background-color: ${({ isActive }) => (isActive ? '#d8a23a' : '#8eb3a2')};
+    background-color: ${({ isActive }) => (isActive ? "#d8a23a" : "#8eb3a2")};
 `;
 
 const TitleBlock = styled.div`

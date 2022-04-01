@@ -1,24 +1,20 @@
-export type SecondsOptionTypes = {
-    name: string;
-    img?: string;
-};
+export type OneCardTypes = OneQuestionTypes[];
 
-export type InnerContents = {
+export interface OneQuestionTypes {
+    title: string;
+    //하위 타입에 대한 명시
+    type: number;
+    options?: FirstOptionTypes[];
+}
+
+export interface FirstOptionTypes {
+    name: string;
+    //하위 타입에 대한 명시
     type: number;
     options?: SecondsOptionTypes[];
-};
+}
 
-export type FirstOptionTypes = {
+export interface SecondsOptionTypes {
     name: string;
-    innerArrayContents?: InnerContents[];
-};
-
-export type OneQuestionTypes = {
-    title: string;
-    type: number;
-    options?: FirstOptionTypes[] | undefined;
-};
-
-export type OneCardTypes = {
-    rowDatas: any[];
-};
+    img?: string;
+}
