@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { selectedCardIndexAtom, selectedFormAtom } from "../../atom/SurveyAtom";
-import { OneQuestionTypes } from "../../types/SelectTypes";
+import {
+    FirstOptionTypes,
+    OneQuestionTypes,
+    SecondsOptionTypes,
+} from "../../types/SelectTypes";
 import DefaultInput from "../atoms/DefaultInput";
 import DefaultText from "../atoms/DefaultText";
 import CheckedLabel from "./CheckedLabel";
@@ -14,49 +18,52 @@ interface LocalProps extends OneQuestionTypes {
 
 const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
     const [form, setForm] = useRecoilState(selectedFormAtom);
-    // const cardNum = useRecoilValue(selectedCardIndexAtom);
-    useEffect(() => {
-        setChecked(form[cardIndex].value);
-        console.log("asdfasdfasdfs", form[cardIndex].value);
-        return () => {
-            setChecked([""]);
-        };
-    }, [cardIndex, form]);
+    const [detailOption, setDetailOption] = useState<FirstOptionTypes[]>([]);
 
     console.log(form, cardIndex);
     const [checked, setChecked] = useState<string[]>([]);
-    let DetailOption = options?.find(item => item.name === checked[0]);
+    const detailOptionTarget = options?.find(item => item.name === checked[0]);
+    useEffect(() => {
+        setChecked(form[cardIndex].value);
+        if (type === 1) {
+            if (detailOptionTarget?.options !== undefined) {
+                setDetailOption([detailOptionTarget]);
+            } else {
+                setDetailOption([]);
+            }
+        }
+
+        return () => {
+            setChecked([""]);
+        };
+    }, [cardIndex, form, checked, detailOptionTarget, type]);
+
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const target = e.target.id;
+        const isIncluded = checked.includes(target);
+
+        console.log("!!!!!!!!!!!!!!", isIncluded);
         //라디오 타입일 경우
         if (type === 1) {
             if (checked[0] !== target) {
                 setChecked(new Array(target));
-                if (!form) {
-                    setForm([
-                        {
-                            title: title,
-                            detailValue: [""],
-                            index: cardIndex,
-                            value: [target],
-                            etc: "",
-                        },
-                    ]);
+                if (detailOptionTarget?.options !== undefined) {
+                    setDetailOption([detailOptionTarget]);
                 } else {
-                    let temp = form.slice();
-                    console.log("asdfasgerwrwqrq", form);
-                    setForm(
-                        temp.map(item =>
-                            item.index === cardIndex
-                                ? {
-                                      ...item,
-                                      value: [target],
-                                      detailValue: [""],
-                                  }
-                                : item,
-                        ),
-                    );
+                    setDetailOption([]);
                 }
+                let temp = form.slice();
+                setForm(
+                    temp.map(item =>
+                        item.index === cardIndex
+                            ? {
+                                  ...item,
+                                  value: [target],
+                                  detailValue: [""],
+                              }
+                            : item,
+                    ),
+                );
             }
         }
     };
@@ -83,12 +90,13 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                     ))
                 )}
 
-                {DetailOption?.options !== undefined && (
+                {detailOption.map(item => (
                     <DetailOptionBox
-                        DetailOptionList={DetailOption?.options!}
-                        type={DetailOption?.type}
+                        detailOptionList={item.options}
+                        type={item.type}
+                        cardIndex={cardIndex}
                     />
-                )}
+                ))}
             </BodyBlock>
         </Wrapper>
     );

@@ -1,18 +1,22 @@
 import React, { useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { selectedFormAtom } from "../../atom/SurveyAtom";
 import { SecondsOptionTypes } from "../../types/SelectTypes";
 import CheckedLabel from "./CheckedLabel";
 
 interface DetailOptionBlockProps {
-    DetailOptionList?: SecondsOptionTypes[];
+    detailOptionList?: SecondsOptionTypes[];
     type: number;
+    cardIndex: number;
 }
 
 const DetailOptionBox = ({
-    DetailOptionList,
+    detailOptionList,
     type,
+    cardIndex,
 }: DetailOptionBlockProps) => {
-    const [DetailChecked, setDetailChecked] = useState();
+    const [form, setForm] = useRecoilState(selectedFormAtom);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         // setChecked(e.target.id);
@@ -20,16 +24,20 @@ const DetailOptionBox = ({
 
     return (
         <DetailOptionBlock>
-            {DetailOptionList !== undefined &&
-                DetailOptionList.map(item => (
+            {detailOptionList !== undefined &&
+                detailOptionList.map(item => (
                     <div key={item.name}>
-                        {/* <CheckedLabel
+                        <CheckedLabel
                             name={item.name}
-                            checked={checked === item.name}
+                            checked={
+                                form[cardIndex].detailValue?.includes(
+                                    item.name,
+                                ) || false
+                            }
                             type={type}
-                            options={item.options}
+                            options={detailOptionList}
                             onChange={onChange}
-                        /> */}
+                        />
                     </div>
                 ))}
         </DetailOptionBlock>
