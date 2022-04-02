@@ -45,7 +45,6 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
             let initDetailOption = options?.find(
                 item => item.name === form[cardIndex].value[0],
             );
-            console.log(initDetailOption);
             if (initDetailOption?.options !== undefined) {
                 setDetailOptionList([initDetailOption]);
             } else {
@@ -53,16 +52,14 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
             }
         }
         if (type === 2) {
+            let temp: FirstOptionTypes[] = [];
             options?.forEach(item => {
                 if (form[cardIndex].value.includes(item.name)) {
-                    setDetailOptionList([...detailOptionList, item]);
+                    temp.push(item);
                 }
             });
+            setDetailOptionList(temp);
         }
-
-        return () => {
-            // setChecked([""]);
-        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
