@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedFormAtom } from "../../atom/SurveyAtom";
@@ -15,55 +15,99 @@ interface LocalProps extends OneQuestionTypes {
 const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
     const [form, setForm] = useRecoilState(selectedFormAtom);
     //체크되어있는 항목들의 하위 옵션 박스
-    const [detailOption, setDetailOption] = useState<FirstOptionTypes[]>([]);
+    const [detailOptionList, setDetailOptionList] = useState<
+        FirstOptionTypes[]
+    >([]);
     const [checked, setChecked] = useState<string[]>([]);
     //체크된 세부 옵션 name값
     const [detailChecked, setDetailChecked] = useState<string[]>([]);
     const [currentTarget, setSetCurrentTarget] = useState<FirstOptionTypes>();
 
     // const detailOptionTarget = options?.find(item => item.name === checked[0]);
-    console.log(form);
-    console.log(detailChecked);
 
-    //렌더링 즉시 기존 입력값 입력
+    //렌더링 즉시 기존에 체크 되었던 값으로 초기화
     useEffect(() => {
-        // alert("초기화");
         const globalValue = form[cardIndex].value;
         //기존 체크된 값 초기화
-        setChecked(globalValue);
-        if (type === 1) {
-            //체크된 값에 세부 옵션이 있다면 세부 옵션을 초기화함
-            let initDetailOption = options?.find(
-                item => item.name === globalValue[0],
-            );
-            if (initDetailOption?.options !== undefined) {
-                setDetailOption([initDetailOption]);
-            } else {
-                setDetailOption([]);
-            }
+        if (globalValue.length !== 0) {
+            setChecked(globalValue);
         }
-
         return () => {
             setChecked([""]);
         };
-    }, [form]);
-    // }, [cardIndex, form, checked, currentTarget, type]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [detailOptionList]);
+
+    // 체크되었던 값에 세부 옵션값이 있다면 리스트 초기화
+    useEffect(() => {
+        if (type === 1) {
+            //체크된 값에 세부 옵션이 있다면 세부 옵션을 초기화함
+            let initDetailOption = options?.find(
+                item => item.name === form[cardIndex].value[0],
+            );
+            console.log(initDetailOption);
+            if (initDetailOption?.options !== undefined) {
+                setDetailOptionList([initDetailOption]);
+            } else {
+                setDetailOptionList([]);
+            }
+        }
+        if (type === 2) {
+            options?.forEach(item => {
+                if (form[cardIndex].value.includes(item.name)) {
+                    setDetailOptionList([...detailOptionList, item]);
+                }
+            });
+        }
+
+        return () => {
+            // setChecked([""]);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    //체크 될때마다
+    useEffect(() => {
+        typeChager();
+        return () => {};
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [checked]);
+
+    const typeChager = () => {
+        if (type === 1) {
+            if (currentTarget?.options !== undefined) {
+                setDetailOptionList([currentTarget]);
+            } else {
+                setDetailOptionList([]);
+            }
+        }
+        if (type === 2) {
+            if (checked.includes(currentTarget?.name as string)) {
+                if (currentTarget?.options !== undefined) {
+                    setDetailOptionList([...detailOptionList, currentTarget]);
+                }
+            } else {
+                setDetailOptionList(prev => {
+                    return prev.filter(
+                        item => item.name !== currentTarget?.name,
+                    );
+                });
+            }
+        }
+    };
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const target = e.target.id;
-        setSetCurrentTarget(options?.find(item => item.name === target));
-        // const isIncluded = checked.includes(target);
         let temp = form.slice();
+        const target = e.target.id;
+        let targetObj = options?.find(item => item.name === target);
+
+        setSetCurrentTarget(targetObj);
+
         //라디오 타입일 경우
         if (type === 1) {
+            // console.log("target", target);
             if (checked[0] !== target) {
                 setChecked(new Array(target));
-                console.log("currentTarget", currentTarget);
-                if (currentTarget?.options !== undefined) {
-                    setDetailOption([currentTarget]);
-                } else {
-                    setDetailOption([]);
-                }
 
                 setForm(
                     temp.map(item =>
@@ -71,53 +115,36 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                             ? {
                                   ...item,
                                   value: [target],
-                                  detailValue: [""],
+                                  detailValue: detailChecked,
                               }
                             : item,
                     ),
                 );
             }
         }
+        //체크박스일 경우
         if (type === 2) {
+            let tempArray: string[] = [];
             if (!checked.includes(target)) {
-                console.log("date", currentTarget);
-                setChecked([...checked, target]);
-                if (currentTarget?.options !== undefined) {
-                    setDetailOption([...detailOption, currentTarget]);
-                }
-
-                setForm(
-                    temp.map(item =>
-                        item.index === cardIndex
-                            ? {
-                                  ...item,
-                                  value: [...item.value, target],
-                                  detailValue: [""],
-                              }
-                            : item,
-                    ),
-                );
+                tempArray =
+                    checked.length === 1 && checked[0] !== ""
+                        ? [...checked, target]
+                        : [target];
             } else {
-                setChecked(checked.filter(item => item !== target));
-                if (currentTarget?.options !== undefined) {
-                    setDetailOption(
-                        detailOption.filter(item => item.name !== target),
-                    );
-                }
-                setForm(
-                    temp.map(item =>
-                        item.index === cardIndex
-                            ? {
-                                  ...item,
-                                  value: item.value.filter(
-                                      item => item !== target,
-                                  ),
-                                  detailValue: [""],
-                              }
-                            : item,
-                    ),
-                );
+                tempArray = checked.filter(item => item !== target);
             }
+            setChecked(tempArray);
+            setForm(
+                temp.map(item =>
+                    item.index === cardIndex
+                        ? {
+                              ...item,
+                              value: tempArray,
+                              detailValue: detailChecked,
+                          }
+                        : item,
+                ),
+            );
         }
     };
 
@@ -127,6 +154,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
         detailType: number,
     ) => {
         const target = e.target.id;
+        //세부 옵션이 라디오 타입일 경우
         if (detailType === 1) {
             if (detailChecked[0] !== target) {
                 setDetailChecked(new Array(target));
@@ -155,7 +183,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                     <DefaultInput />
                 ) : (
                     options.map((item, index) => (
-                        <div key={item.name}>
+                        <div key={index}>
                             <CheckedLabel
                                 name={item.name}
                                 checked={checked.includes(item.name)}
@@ -167,16 +195,17 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                     ))
                 )}
 
-                {detailOption.map(item => (
-                    <DetailOptionBox
-                        key={item.name}
-                        detailOptionList={item.options}
-                        detailTitle={item.detailTitle}
-                        type={item.type}
-                        cardIndex={cardIndex}
-                        onDetailChange={onDetailChange}
-                    />
-                ))}
+                {detailOptionList &&
+                    detailOptionList.map((item, index) => (
+                        <DetailOptionBox
+                            key={index}
+                            detailOptionList={item.options}
+                            detailTitle={item.detailTitle}
+                            type={item.type}
+                            cardIndex={cardIndex}
+                            onDetailChange={onDetailChange}
+                        />
+                    ))}
             </BodyBlock>
         </Wrapper>
     );
