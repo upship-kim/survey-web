@@ -10,10 +10,11 @@ export const rowDatas = [
                     {
                         name: "냉장고(라디오)",
                         type: 1,
+                        detailTitle: "냉장고 유형 선택",
                         options: [
                             {
                                 name: "양문형 냉장고",
-                                img: "",
+                                img: "https://img.wkorea.com/w/2020/01/style_5e28242f9d55f-700x467.jpg",
                             },
                             {
                                 name: "단문형 냉장고",
@@ -28,6 +29,7 @@ export const rowDatas = [
                     {
                         name: "식탁(체크박스)",
                         type: 3,
+                        detailTitle: "식탁 유형 선택",
                         options: [
                             {
                                 name: "아일랜드형",
@@ -66,6 +68,7 @@ export const rowDatas = [
                     {
                         name: "111냉장고(라디오)",
                         type: 1,
+                        detailTitle: "침실 유형 선택",
                         options: [
                             {
                                 name: "양문형 냉장고",
@@ -84,6 +87,7 @@ export const rowDatas = [
                     {
                         name: "111식탁(체크박스)",
                         type: 3,
+                        detailTitle: "식탁 유형 선택",
                         options: [
                             {
                                 name: "아일랜드형",
@@ -129,7 +133,7 @@ export const rowDatas = [
                             },
                             {
                                 name: "단문형 냉장고",
-                                img: "",
+                                img: "https://img.wkorea.com/w/2020/01/style_5e28242f9d55f-700x467.jpg",
                             },
                             {
                                 name: "아이스박스",

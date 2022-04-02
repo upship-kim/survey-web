@@ -1,5 +1,5 @@
-import React, { InputHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import React, { InputHTMLAttributes } from "react";
+import styled from "styled-components";
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
@@ -15,6 +15,7 @@ const StyledInput = styled.input<InputProps>`
     border: 0px solid gray;
     border-bottom: 1px solid #acacac;
     outline: none;
+    cursor: pointer;
     &:focus {
         border-bottom: 2px solid #3f59cf;
         outline: none;

@@ -1,45 +1,50 @@
-import React, { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { selectedFormAtom } from "../../atom/SurveyAtom";
 import { SecondsOptionTypes } from "../../types/SelectTypes";
+import DefaultText from "../atoms/DefaultText";
 import CheckedLabel from "./CheckedLabel";
 
 interface DetailOptionBlockProps {
     detailOptionList?: SecondsOptionTypes[];
     type: number;
     cardIndex: number;
+    detailTitle?: string;
+    onDetailChange: (
+        e: React.ChangeEvent<HTMLInputElement>,
+        detailType: number,
+    ) => void;
 }
 
 const DetailOptionBox = ({
     detailOptionList,
     type,
     cardIndex,
+    onDetailChange,
+    detailTitle,
 }: DetailOptionBlockProps) => {
-    const [form, setForm] = useRecoilState(selectedFormAtom);
-
-    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // setChecked(e.target.id);
-    };
+    const form = useRecoilValue(selectedFormAtom);
 
     return (
         <DetailOptionBlock>
-            {detailOptionList !== undefined &&
-                detailOptionList.map(item => (
-                    <div key={item.name}>
+            <DefaultText text={detailTitle || ""} bold />
+            <OptionBox>
+                {detailOptionList !== undefined &&
+                    detailOptionList.map(item => (
                         <CheckedLabel
+                            key={item.name}
                             name={item.name}
+                            img={item.img}
                             checked={
                                 form[cardIndex].detailValue?.includes(
                                     item.name,
                                 ) || false
                             }
                             type={type}
-                            options={detailOptionList}
-                            onChange={onChange}
+                            onChange={e => onDetailChange(e, type)}
                         />
-                    </div>
-                ))}
+                    ))}
+            </OptionBox>
         </DetailOptionBlock>
     );
 };
@@ -48,9 +53,23 @@ export default DetailOptionBox;
 
 const DetailOptionBlock = styled.div`
     display: flex;
-    width: 80%;
+    width: 96%;
     padding: 1rem 0;
     align-items: flex-start;
     flex-direction: row;
+    background-color: #eeeeee;
+    border-radius: 10px;
+    padding: 1rem;
     flex-wrap: wrap;
+    span {
+        padding-left: 1rem;
+    }
+`;
+
+const OptionBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: flex-start;
+    margin: 1rem 0;
 `;

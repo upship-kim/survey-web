@@ -6,18 +6,13 @@ import DefaultLabel from "../atoms/DefaultLabel";
 
 interface LocalProps extends FirstOptionTypes {
     type: number;
+    name: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     checked: boolean;
+    img?: string | undefined;
 }
 
-const CheckedLabel = ({
-    name,
-    type,
-    onChange,
-    checked,
-    options,
-}: LocalProps) => {
-    console.log(options);
+const CheckedLabel = ({ name, type, onChange, checked, img }: LocalProps) => {
     const CheckComponent = () => {
         switch (type) {
             case 0:
@@ -53,23 +48,49 @@ const CheckedLabel = ({
     };
 
     return (
-        <>
-            <Wrapper>
+        <Wrapper htmlFor={name}>
+            <ItemBox>
                 {CheckComponent()}
                 <DefaultLabel text={name} htmlFor={name} />
-            </Wrapper>
-        </>
+            </ItemBox>
+            {img !== "" && img && (
+                <Img src={img} alt="img" loading="lazy" decoding="async" />
+            )}
+        </Wrapper>
     );
 };
 
 export default CheckedLabel;
 
-const Wrapper = styled.div`
+const Wrapper = styled.label`
     display: flex;
-    flex-direction: row;
-    height: max-content;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: max-content;
+    padding: 6px;
+    border: 2px solid #eeeeee;
+    border-radius: 70px;
+    cursor: pointer;
+
     & {
         margin-right: 12px;
     }
+`;
+const ItemBox = styled.div`
+    display: flex;
+    flex-direction: row;
+    height: max-content;
+    width: 100%;
+    cursor: pointer;
+    & {
+        margin-right: 12px;
+    }
+`;
+
+const Img = styled.img`
+    margin: 10px;
+    height: 6rem;
+    border: 0px;
+    border-radius: 20px;
 `;
