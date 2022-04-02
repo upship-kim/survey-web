@@ -15,7 +15,12 @@ const StyledInput = styled.input<InputProps>`
     border: 0px solid gray;
     border-bottom: 1px solid #acacac;
     outline: none;
-    cursor: pointer;
+    & input[checkbox] {
+        cursor: pointer;
+    }
+    & input[radio] {
+        cursor: pointer;
+    }
     &:focus {
         border-bottom: 2px solid #3f59cf;
         outline: none;
