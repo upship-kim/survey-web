@@ -11,7 +11,7 @@ export interface FirstOptionTypes {
     name: string;
     //하위 타입에 대한 명시
     type: number;
-    detailTitle?: string;
+    detailTitle: string;
     options?: SecondsOptionTypes[];
 }
 

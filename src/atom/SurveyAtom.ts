@@ -4,7 +4,7 @@ type SelectedTypes = {
     index: number;
     title: string;
     value: string[];
-    detailValue?: string[];
+    detailValue: { [name: string]: string[] };
     etc: string;
 };
 export const selectedFormAtom = atom<SelectedTypes[]>({

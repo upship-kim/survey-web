@@ -16,7 +16,7 @@ const SelectForm = () => {
                     etc: "",
                     title: item.title,
                     value: [""],
-                    detailValue: [""],
+                    detailValue: {},
                 };
             }),
         );

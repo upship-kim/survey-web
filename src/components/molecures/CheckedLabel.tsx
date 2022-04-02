@@ -12,7 +12,14 @@ interface LocalProps extends FirstOptionTypes {
     img?: string | undefined;
 }
 
-const CheckedLabel = ({ name, type, onChange, checked, img }: LocalProps) => {
+const CheckedLabel = ({
+    name,
+    type,
+    onChange,
+    checked,
+    img,
+    detailTitle,
+}: LocalProps) => {
     const CheckComponent = () => {
         switch (type) {
             case 0:

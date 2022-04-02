@@ -19,12 +19,11 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
         FirstOptionTypes[]
     >([]);
     const [checked, setChecked] = useState<string[]>([]);
-    //체크된 세부 옵션 name값
     const [detailChecked, setDetailChecked] = useState<string[]>([]);
     const [currentTarget, setSetCurrentTarget] = useState<FirstOptionTypes>();
 
     // const detailOptionTarget = options?.find(item => item.name === checked[0]);
-
+    console.log(form);
     //렌더링 즉시 기존에 체크 되었던 값으로 초기화
     useEffect(() => {
         const globalValue = form[cardIndex].value;
@@ -89,13 +88,14 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let temp = form.slice();
         const target = e.target.id;
-        let targetObj = options?.find(item => item.name === target);
+        let targetObj = options?.find(
+            item => item.name === target,
+        ) as FirstOptionTypes;
 
         setSetCurrentTarget(targetObj);
 
         //라디오 타입일 경우
         if (type === 1) {
-            // console.log("target", target);
             if (checked[0] !== target) {
                 setChecked(new Array(target));
                 typeChager();
@@ -105,7 +105,9 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                             ? {
                                   ...item,
                                   value: [target],
-                                  detailValue: detailChecked,
+                                  detailValue: {
+                                      [targetObj.detailTitle]: [target],
+                                  },
                               }
                             : item,
                     ),
@@ -116,21 +118,22 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
         if (type === 2) {
             let tempArray: string[] = [];
             if (!checked.includes(target)) {
-                tempArray =
-                    checked.length === 1 && checked[0] !== ""
-                        ? [...checked, target]
-                        : [target];
+                tempArray = checked[0] !== "" ? [...checked, target] : [target];
             } else {
                 tempArray = checked.filter(item => item !== target);
             }
+
             setChecked(tempArray);
+            typeChager();
             setForm(
                 temp.map(item =>
                     item.index === cardIndex
                         ? {
                               ...item,
                               value: tempArray,
-                              detailValue: detailChecked,
+                              //   detailValue: {
+                              //       [targetObj.detailTitle]: tempArray,
+                              //   },
                           }
                         : item,
                 ),
@@ -142,24 +145,70 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
     const onDetailChange = (
         e: React.ChangeEvent<HTMLInputElement>,
         detailType: number,
+        detailTitle: string,
     ) => {
-        const target = e.target.id;
+        const detailTarget = e.target.id;
+
+        let temp = form.slice();
+
         //세부 옵션이 라디오 타입일 경우
         if (detailType === 1) {
-            if (detailChecked[0] !== target) {
-                setDetailChecked(new Array(target));
-                let temp = form.slice();
-                setForm(
-                    temp.map(item =>
-                        item.index === cardIndex
-                            ? {
-                                  ...item,
-                                  detailValue: [target],
-                              }
-                            : item,
-                    ),
+            console.log(detailType);
+            setForm(
+                temp.map(item =>
+                    item.index === cardIndex
+                        ? {
+                              ...item,
+                              detailValue: {
+                                  ...item.detailValue,
+                                  [detailTitle]: [detailTarget],
+                              },
+                          }
+                        : item,
+                ),
+            );
+        }
+        if (detailType === 2) {
+            let tempArray: string[] = [];
+
+            let tempObj: {} = {};
+
+            if (
+                Object.keys(form[cardIndex].detailValue).length === 0 ||
+                // form[cardIndex].detailValue[detailTitle].length === 0 ||
+                !detailChecked.includes(detailTarget)
+            ) {
+                setDetailChecked([...detailChecked, detailTarget]);
+
+                tempArray = [...detailChecked, detailTarget];
+                tempObj = {
+                    ...form[cardIndex].detailValue,
+                    [detailTitle]: tempArray,
+                };
+            } else {
+                let newArray = form[cardIndex].detailValue[detailTitle].filter(
+                    item => item !== detailTarget,
                 );
+
+                setDetailChecked(newArray);
+
+                tempObj = {
+                    ...tempObj,
+                    ...form[cardIndex].detailValue,
+                    [detailTitle]: newArray,
+                };
             }
+
+            setForm(
+                temp.map(item =>
+                    item.index === cardIndex
+                        ? {
+                              ...item,
+                              detailValue: tempObj,
+                          }
+                        : item,
+                ),
+            );
         }
     };
 
@@ -176,6 +225,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                         <div key={index}>
                             <CheckedLabel
                                 name={item.name}
+                                detailTitle={item.detailTitle}
                                 checked={checked.includes(item.name)}
                                 type={type}
                                 options={item.options}

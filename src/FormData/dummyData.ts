@@ -28,7 +28,7 @@ export const rowDatas = [
                     },
                     {
                         name: "식탁(체크박스)",
-                        type: 3,
+                        type: 2,
                         detailTitle: "식탁 유형 선택",
                         options: [
                             {
@@ -48,6 +48,7 @@ export const rowDatas = [
                     {
                         name: "입력형",
                         type: 0,
+                        detailTitle: "주방3 유형 선택",
                     },
                 ],
             },
@@ -86,7 +87,7 @@ export const rowDatas = [
                     },
                     {
                         name: "111식탁(체크박스)",
-                        type: 3,
+                        type: 2,
                         detailTitle: "식탁 유형 선택",
                         options: [
                             {
@@ -106,6 +107,7 @@ export const rowDatas = [
                     {
                         name: "111입력형",
                         type: 0,
+                        detailTitle: "침실 유형 선택",
                     },
                 ],
             },
@@ -126,6 +128,7 @@ export const rowDatas = [
                     {
                         name: "222냉장고(라디오)",
                         type: 1,
+                        detailTitle: "욕실 유형 선택",
                         options: [
                             {
                                 name: "양문형 냉장고",
@@ -143,7 +146,8 @@ export const rowDatas = [
                     },
                     {
                         name: "222식탁(체크박스)",
-                        type: 3,
+                        type: 2,
+                        detailTitle: "욕실2 유형 선택",
                         options: [
                             {
                                 name: "아일랜드형",
@@ -162,6 +166,7 @@ export const rowDatas = [
                     {
                         name: "222입력형",
                         type: 0,
+                        detailTitle: "욕실3 유형 선택",
                     },
                 ],
             },
@@ -182,6 +187,7 @@ export const rowDatas = [
                     {
                         name: "333냉장고(라디오)",
                         type: 1,
+                        detailTitle: "거실1 유형 선택",
                         options: [
                             {
                                 name: "양문형 냉장고",
@@ -200,6 +206,7 @@ export const rowDatas = [
                     {
                         name: "333식탁(체크박스)",
                         type: 3,
+                        detailTitle: "거실2 유형 선택",
                         options: [
                             {
                                 name: "아일랜드형",
@@ -218,6 +225,7 @@ export const rowDatas = [
                     {
                         name: "333입력형",
                         type: 0,
+                        detailTitle: "거실3 유형 선택",
                     },
                 ],
             },
