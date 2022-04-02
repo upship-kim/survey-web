@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 const Container: React.FC = ({ children }) => {
     return (
@@ -26,4 +26,9 @@ const StyledWrapper = styled.div`
     height: 100%;
     overflow: auto;
     justify-content: center;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding: 0 1rem;
+        overflow: hidden;
+    } ;
 `;

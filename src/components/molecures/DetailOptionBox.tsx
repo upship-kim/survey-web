@@ -70,6 +70,11 @@ const DetailOptionBlock = styled.div`
     span {
         padding-left: 1rem;
     }
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+    } ;
 `;
 
 const OptionBox = styled.div`
@@ -78,4 +83,9 @@ const OptionBox = styled.div`
     width: 100%;
     align-items: flex-start;
     margin: 1rem 0;
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        display: flex;
+        flex-wrap: wrap;
+    } ;
 `;

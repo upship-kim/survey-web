@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import DefaultText from '../atoms/DefaultText';
+import React from "react";
+import styled from "styled-components";
+import DefaultText from "../atoms/DefaultText";
 
 interface BlockTitleProps {
     leftText: string;
@@ -29,4 +29,10 @@ const Wrapper = styled.div`
     width: 100%;
     border-bottom: 1px solid #acacac;
     margin: 1.4rem 0;
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 10px;
+        margin: 0rem 0;
+    } ;
 `;

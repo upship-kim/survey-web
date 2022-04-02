@@ -47,7 +47,6 @@ const StyledCard = styled.div<{ isActive: boolean }>`
     flex-direction: row;
     justify-content: space-between;
     height: 100%;
-    padding: 0rem;
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
@@ -62,6 +61,11 @@ const StyledCard = styled.div<{ isActive: boolean }>`
             background-color: #d8a23a;
         }
     }
+    @media screen and (max-width: 768px) {
+        div {
+            height: 1rem;
+        }
+    } ;
 `;
 const IndexBlock = styled.div<{ isActive: boolean }>`
     display: flex;

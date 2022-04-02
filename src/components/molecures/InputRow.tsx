@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
-import DefaultText from '../atoms/DefaultText';
+import React from "react";
+import styled from "styled-components";
+import DefaultText from "../atoms/DefaultText";
 
 interface InputRowProps {
     title: string;
     isRequire?: boolean;
-    flexDirection?: 'row' | 'column';
+    flexDirection?: "row" | "column";
 }
 
 const InputRow: React.FC<InputRowProps> = ({
     title,
-    flexDirection = 'row',
+    flexDirection = "row",
     children,
     isRequire = false,
 }) => {
@@ -39,12 +39,18 @@ const TitleBlock = styled.div`
     padding: 12px 0;
     justify-content: flex-start;
     align-items: center;
+    @media screen and (max-width: 768px) {
+        flex: 0.4;
+    } ;
 `;
-const InputBlock = styled.div<{ flexDirection: 'row' | 'column' }>`
+const InputBlock = styled.div<{ flexDirection: "row" | "column" }>`
     display: flex;
     flex: 0.8;
     justify-content: left;
     align-items: ${({ flexDirection }) =>
-        flexDirection === 'column' ? 'left' : 'center'};
+        flexDirection === "column" ? "left" : "center"};
     flex-direction: ${({ flexDirection }) => flexDirection};
+    @media screen and (max-width: 768px) {
+        flex: 0.7;
+    } ;
 `;

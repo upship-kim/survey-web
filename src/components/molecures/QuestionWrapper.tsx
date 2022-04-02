@@ -257,12 +257,18 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+    } ;
 `;
 const TitleBlock = styled.div`
     display: flex;
     width: 20%;
     align-items: flex-start;
     padding: 1rem;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+    } ;
 `;
 
 const BodyBlock = styled.div`
@@ -273,4 +279,8 @@ const BodyBlock = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     row-gap: 1rem;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        padding: 0 1rem;
+    } ;
 `;
