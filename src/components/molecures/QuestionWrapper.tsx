@@ -36,7 +36,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
             setChecked([""]);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [detailOptionList]);
+    }, []);
 
     // 체크되었던 값에 세부 옵션값이 있다면 리스트 초기화
     useEffect(() => {
@@ -60,13 +60,6 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
             });
             setDetailOptionList(temp);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    //체크 될때마다
-    useEffect(() => {
-        typeChager();
-        return () => {};
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checked]);
 
@@ -105,7 +98,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
             // console.log("target", target);
             if (checked[0] !== target) {
                 setChecked(new Array(target));
-
+                typeChager();
                 setForm(
                     temp.map(item =>
                         item.index === cardIndex
