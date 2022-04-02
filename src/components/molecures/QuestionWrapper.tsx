@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedFormAtom } from "../../atom/SurveyAtom";
@@ -22,8 +22,6 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
     const [detailChecked, setDetailChecked] = useState<string[]>([]);
     const [currentTarget, setSetCurrentTarget] = useState<FirstOptionTypes>();
 
-    // const detailOptionTarget = options?.find(item => item.name === checked[0]);
-    console.log(form);
     //렌더링 즉시 기존에 체크 되었던 값으로 초기화
     useEffect(() => {
         const globalValue = form[cardIndex].value;
@@ -153,7 +151,6 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
 
         //세부 옵션이 라디오 타입일 경우
         if (detailType === 1) {
-            console.log(detailType);
             setForm(
                 temp.map(item =>
                     item.index === cardIndex
