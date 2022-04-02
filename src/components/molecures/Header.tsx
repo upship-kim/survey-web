@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 interface HeaderProps {
     title: string;
@@ -23,11 +23,19 @@ const StyledHeader = styled.div`
     background: linear-gradient(0deg, #ffffff 0%, #f5f5dc 100%);
 
     width: 100%;
-    margin: 0rem 0 4rem 0;
+    margin: 0 0 4rem 0;
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        margin: 0;
+        height: 10vh;
+    } ;
 `;
 
 const StyledSpan = styled.span`
     color: #486a73;
     font-weight: 800;
     font-size: 2.4rem;
+    @media screen and (max-width: 768px) {
+        font-size: 1.6rem;
+    } ;
 `;
