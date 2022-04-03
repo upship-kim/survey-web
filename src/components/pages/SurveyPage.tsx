@@ -1,11 +1,17 @@
 import React from "react";
 import Container from "../atoms/Container";
+import DefaultButton from "../atoms/DefaultButton";
 import BlockTitle from "../molecures/BlockTitle";
 import Header from "../molecures/Header";
 import BasicForm from "../templates/BasicForm";
 import SelectForm from "../templates/SelectForm";
+import SubmitForm from "../templates/SubmitForm";
 
 const SurveyPage = () => {
+    const onSubmit = () => {
+        alert("submit");
+    };
+
     return (
         <>
             <Header title="견적 문의" />
@@ -19,6 +25,8 @@ const SurveyPage = () => {
                     }
                 />
                 <SelectForm />
+
+                <SubmitForm onSubmit={onSubmit} />
             </Container>
         </>
     );
