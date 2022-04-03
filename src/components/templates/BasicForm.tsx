@@ -1,21 +1,21 @@
-import React from 'react';
-import styled from 'styled-components';
-import { requestForm } from '../../FormData/requestForm';
-import DefaultInput from '../atoms/DefaultInput';
-import DefaultSelect from '../atoms/DefaultSelect';
-import InputRow from '../molecures/InputRow';
+import React from "react";
+import styled from "styled-components";
+import { requestForm } from "../../FormData/requestForm";
+import DefaultInput from "../atoms/DefaultInput";
+import DefaultSelect from "../atoms/DefaultSelect";
+import InputRow from "../molecures/InputRow";
 
 const BasicForm = () => {
     return (
         <Wrapper>
             {requestForm.map(item =>
-                item.type === 'input' ? (
+                item.type === "input" ? (
                     <InputRow
                         key={item.id}
                         title={item.title}
                         isRequire={item.isRequire}
                     >
-                        {item.type === 'input' && (
+                        {item.type === "input" && (
                             <DefaultInput
                                 {...item.props}
                                 onChange={(

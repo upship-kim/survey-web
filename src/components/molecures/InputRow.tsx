@@ -46,8 +46,9 @@ const TitleBlock = styled.div`
 const InputBlock = styled.div<{ flexDirection: "row" | "column" }>`
     display: flex;
     flex: 0.8;
-    justify-content: left;
-    align-items: ${({ flexDirection }) =>
+    height: 100%;
+    justify-content: center;
+    align-self: ${({ flexDirection }) =>
         flexDirection === "column" ? "left" : "center"};
     flex-direction: ${({ flexDirection }) => flexDirection};
     @media screen and (max-width: 768px) {
