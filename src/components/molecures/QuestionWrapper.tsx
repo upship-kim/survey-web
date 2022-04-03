@@ -37,7 +37,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
 
     // 체크되었던 값에 세부 옵션값이 있다면 리스트 초기화
     useEffect(() => {
-        if (type === 1) {
+        if (type === 1 || type === 0) {
             //체크된 값에 세부 옵션이 있다면 세부 옵션을 초기화함
             let initDetailOption = options?.find(
                 item => item.name === form[cardIndex].value[0],
@@ -104,7 +104,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                                   ...item,
                                   value: [target],
                                   detailValue: {
-                                      [targetObj.detailTitle]: [target],
+                                      [targetObj.detailTitle]: [],
                                   },
                               }
                             : item,
@@ -129,14 +129,37 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                         ? {
                               ...item,
                               value: tempArray,
-                              //   detailValue: {
-                              //       [targetObj.detailTitle]: tempArray,
-                              //   },
+                              detailValue: {
+                                  ...form[cardIndex].detailValue,
+                                  [targetObj.detailTitle]: [],
+                              },
                           }
                         : item,
                 ),
             );
         }
+    };
+
+    const onDetailSelectChange = (
+        e: React.ChangeEvent<HTMLSelectElement>,
+        detailTitle: string,
+    ) => {
+        const detailTarget = e.target.value;
+        let temp = form.slice();
+        //세부 옵션이 셀렉트 타입일 경우
+        setForm(
+            temp.map(item =>
+                item.index === cardIndex
+                    ? {
+                          ...item,
+                          detailValue: {
+                              ...item.detailValue,
+                              [detailTitle]: [detailTarget],
+                          },
+                      }
+                    : item,
+            ),
+        );
     };
 
     //세부 옵션 선택 시 체인저
@@ -241,6 +264,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                             type={item.type}
                             cardIndex={cardIndex}
                             onDetailChange={onDetailChange}
+                            onDetailSelectChange={onDetailSelectChange}
                         />
                     ))}
             </BodyBlock>

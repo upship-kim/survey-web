@@ -1,7 +1,10 @@
+import React from "react";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import { selectedFormAtom } from "../../atom/SurveyAtom";
 import { SecondsOptionTypes } from "../../types/SelectTypes";
+import DefaultInput from "../atoms/DefaultInput";
+import DefaultSelect from "../atoms/DefaultSelect";
 import DefaultText from "../atoms/DefaultText";
 import CheckedLabel from "./CheckedLabel";
 
@@ -15,6 +18,10 @@ interface DetailOptionBlockProps {
         detailType: number,
         detailTitle: string,
     ) => void;
+    onDetailSelectChange: (
+        e: React.ChangeEvent<HTMLSelectElement>,
+        detailTitle: string,
+    ) => void;
 }
 
 const DetailOptionBox = ({
@@ -22,17 +29,33 @@ const DetailOptionBox = ({
     type,
     cardIndex,
     onDetailChange,
+    onDetailSelectChange,
     detailTitle,
 }: DetailOptionBlockProps) => {
     const form = useRecoilValue(selectedFormAtom);
 
     const checkedList = form[cardIndex]?.detailValue[detailTitle];
+    console.log(checkedList);
+    const selecetedValue = checkedList === undefined ? "선택" : checkedList[0];
     return (
         form && (
             <DetailOptionBlock>
                 <DefaultText text={detailTitle || ""} bold />
                 <OptionBox>
-                    {detailOptionList !== undefined &&
+                    {type === 0 ? (
+                        <DefaultInput type={"text"} />
+                    ) : type === 3 ? (
+                        detailOptionList !== undefined && (
+                            <DefaultSelect
+                                options={detailOptionList}
+                                value={selecetedValue}
+                                onChange={e =>
+                                    onDetailSelectChange(e, detailTitle)
+                                }
+                            />
+                        )
+                    ) : (
+                        detailOptionList !== undefined &&
                         detailOptionList.map(item => (
                             <CheckedLabel
                                 key={item.name}
@@ -47,7 +70,8 @@ const DetailOptionBox = ({
                                     onDetailChange(e, type, detailTitle)
                                 }
                             />
-                        ))}
+                        ))
+                    )}
                 </OptionBox>
             </DetailOptionBlock>
         )
@@ -82,6 +106,7 @@ const OptionBox = styled.div`
     flex-direction: row;
     width: 100%;
     align-items: flex-start;
+    flex-wrap: wrap;
     margin: 1rem 0;
     @media screen and (max-width: 768px) {
         width: 90%;

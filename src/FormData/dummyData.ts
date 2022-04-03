@@ -27,6 +27,37 @@ export const rowDatas = [
                         ],
                     },
                     {
+                        name: "냉장고(셀렉트박스)",
+                        type: 3,
+                        detailTitle: "셀렉트박스 선택",
+                        options: [
+                            {
+                                name: "양문형 냉장고",
+                                img: "",
+                            },
+                            {
+                                name: "단문형 냉장고",
+                                img: "",
+                            },
+                            {
+                                name: "아이스박스",
+                                img: "",
+                            },
+                            {
+                                name: "양문형 냉장고",
+                                img: "",
+                            },
+                            {
+                                name: "단문형 냉장고",
+                                img: "",
+                            },
+                            {
+                                name: "아이스박스",
+                                img: "",
+                            },
+                        ],
+                    },
+                    {
                         name: "식탁(체크박스)",
                         type: 2,
                         detailTitle: "식탁 유형 선택",
@@ -70,6 +101,25 @@ export const rowDatas = [
                         name: "111냉장고(라디오)",
                         type: 1,
                         detailTitle: "침실 유형 선택",
+                        options: [
+                            {
+                                name: "양문형 냉장고",
+                                img: "",
+                            },
+                            {
+                                name: "단문형 냉장고",
+                                img: "",
+                            },
+                            {
+                                name: "아이스박스",
+                                img: "",
+                            },
+                        ],
+                    },
+                    {
+                        name: "111냉장고(셀렉트 박스)",
+                        type: 3,
+                        detailTitle: "셀렉트 유형 선택",
                         options: [
                             {
                                 name: "양문형 냉장고",
@@ -205,7 +255,7 @@ export const rowDatas = [
                     },
                     {
                         name: "333식탁(체크박스)",
-                        type: 3,
+                        type: 2,
                         detailTitle: "거실2 유형 선택",
                         options: [
                             {
