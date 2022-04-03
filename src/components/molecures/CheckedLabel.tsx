@@ -27,6 +27,7 @@ const CheckedLabel = ({
                     <DefaultInput
                         type={"text"}
                         id={name}
+                        onChange={onChange}
                         style={{ width: "maxContent" }}
                     />
                 );
@@ -49,6 +50,7 @@ const CheckedLabel = ({
                         onChange={onChange}
                     />
                 );
+
             default:
                 return;
         }

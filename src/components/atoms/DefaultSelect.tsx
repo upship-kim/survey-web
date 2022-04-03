@@ -2,7 +2,7 @@ import React, { SelectHTMLAttributes } from "react";
 import styled from "styled-components";
 
 type OptionTypes = {
-    value: string | number;
+    name: string | number;
 };
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     options?: OptionTypes[];
@@ -11,11 +11,11 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 const DefaultSelect = ({ options, ...props }: SelectProps) => {
     return (
         <StyledSelect {...props}>
-            <DefaultOption>선택</DefaultOption>
+            <DefaultOption value="선택">선택</DefaultOption>
             {options &&
-                options.map(item => (
-                    <option key={item.value} value={item.value}>
-                        {item.value}
+                options.map((item, index) => (
+                    <option key={index} value={item.name}>
+                        {item.name}
                     </option>
                 ))}
         </StyledSelect>
