@@ -14,11 +14,11 @@ export const rowDatas = [
                         options: [
                             {
                                 name: "양문형 냉장고",
-                                img: "https://img.wkorea.com/w/2020/01/style_5e28242f9d55f-700x467.jpg",
+                                img: "https://live.lge.co.kr/wp-content/uploads/2017/08/963-3.jpg",
                             },
                             {
                                 name: "단문형 냉장고",
-                                img: "",
+                                img: "https://thumbnail9.coupangcdn.com/thumbnails/remote/492x492ex/image/retail/images/2021/04/16/15/3/fd2daaf9-fb66-431c-88af-42c4b9d24824.jpg",
                             },
                             {
                                 name: "아이스박스",
@@ -64,14 +64,14 @@ export const rowDatas = [
                         options: [
                             {
                                 name: "아일랜드형",
-                                img: "",
+                                img: "https://contents.lotteon.com/itemimage/_v120406/LO/15/15/98/95/77/_1/51/59/89/57/8/LO1515989577_1515989578_1.png/dims/optimize/dims/resizemc/400x400",
                             },
                             {
                                 name: "한국형",
-                                img: "",
+                                img: "https://ae01.alicdn.com/kf/H727ba2f1386842b08d3c9fc9ce027a3fk/Asain-120x80cm.jpg",
                             },
                             {
-                                name: "밥상",
+                                name: "세숫대야",
                                 img: "",
                             },
                         ],
@@ -104,7 +104,7 @@ export const rowDatas = [
                         options: [
                             {
                                 name: "양문형 냉장고",
-                                img: "",
+                                img: "https://live.lge.co.kr/wp-content/uploads/2017/08/963-3.jpg",
                             },
                             {
                                 name: "단문형 냉장고",
@@ -142,7 +142,7 @@ export const rowDatas = [
                         options: [
                             {
                                 name: "아일랜드형",
-                                img: "",
+                                img: "https://contents.lotteon.com/itemimage/_v120406/LO/15/15/98/95/77/_1/51/59/89/57/8/LO1515989577_1515989578_1.png/dims/optimize/dims/resizemc/400x400",
                             },
                             {
                                 name: "한국형",
@@ -186,7 +186,7 @@ export const rowDatas = [
                             },
                             {
                                 name: "단문형 냉장고",
-                                img: "https://img.wkorea.com/w/2020/01/style_5e28242f9d55f-700x467.jpg",
+                                img: "",
                             },
                             {
                                 name: "아이스박스",
@@ -205,7 +205,7 @@ export const rowDatas = [
                             },
                             {
                                 name: "한국형",
-                                img: "",
+                                img: "https://ae01.alicdn.com/kf/H727ba2f1386842b08d3c9fc9ce027a3fk/Asain-120x80cm.jpg",
                             },
                             {
                                 name: "밥상",
