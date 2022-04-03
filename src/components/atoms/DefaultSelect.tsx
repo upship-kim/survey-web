@@ -1,5 +1,5 @@
-import React, { SelectHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import React, { SelectHTMLAttributes } from "react";
+import styled from "styled-components";
 
 type OptionTypes = {
     value: string | number;
