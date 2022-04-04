@@ -8,7 +8,7 @@ import SurveyPage from "./components/pages/SurveyPage";
 function App() {
     return (
         <RecoilRoot>
-            {/* <SurveyPage /> */}
+            <SurveyPage />
             <AdminPage />
         </RecoilRoot>
     );

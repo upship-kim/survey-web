@@ -1,3 +1,9 @@
+export type CardTypes = {
+    id: number;
+    title: string;
+    rows: OneCardTypes;
+};
+
 export type OneCardTypes = OneQuestionTypes[];
 
 export interface OneQuestionTypes {

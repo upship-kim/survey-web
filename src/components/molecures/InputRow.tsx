@@ -30,12 +30,12 @@ const Wrapper = styled.div`
     display: flex;
     flex: 1;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     margin: 0.4rem 0;
 `;
 const TitleBlock = styled.div`
     display: flex;
-    flex: 0.2;
+    flex: 0.3;
     padding: 12px 0;
     justify-content: flex-start;
     align-items: center;
@@ -45,7 +45,7 @@ const TitleBlock = styled.div`
 `;
 const InputBlock = styled.div<{ flexDirection: "row" | "column" }>`
     display: flex;
-    flex: 0.8;
+    flex: 0.7;
     height: 100%;
     justify-content: center;
     align-self: ${({ flexDirection }) =>

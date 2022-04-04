@@ -3,6 +3,7 @@ import styled from "styled-components";
 import PlusMinusIcon from "../atoms/PlusMinusIcon";
 import BlockTitle from "../molecures/BlockTitle";
 import Header from "../molecures/Header";
+import SurveyCreator from "../templates/SurveyCreator";
 
 const AdminPage = () => {
     return (
@@ -11,8 +12,11 @@ const AdminPage = () => {
             <Container>
                 <PlusMinusIcon isActive />
                 <PlusMinusIcon isActive={false} />
-                <BlockTitle leftText={"설문 등록 및 수정"} hasRightText={""} />
-                <ControllBox>컨트롤 박스 </ControllBox>
+                <BlockTitle
+                    leftText={"선택 입력사항 등록/수정"}
+                    hasRightText={""}
+                />
+                <SurveyCreator />
                 <SurveyListBox>설문 리스트 박스 </SurveyListBox>
             </Container>
         </>
@@ -25,11 +29,7 @@ const Container = styled.div`
     flex-direction: column;
     padding: 4rem;
 `;
-const ControllBox = styled.div`
-    background-color: gray;
-    width: 100%;
-    height: 20vh;
-`;
+
 const SurveyListBox = styled.div`
     background-color: #e3e3e3;
     width: 100%;
