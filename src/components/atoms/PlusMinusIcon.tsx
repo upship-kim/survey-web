@@ -7,24 +7,28 @@ interface IconProps {
     onClick?: () => void;
 }
 const PlusMinusIcon = ({ isActive, onClick }: IconProps) => {
-    return isActive ? <Minus onClick={onClick} /> : <Plus onClick={onClick} />;
+    return isActive ? (
+        <Minus onClick={onClick} size={15} />
+    ) : (
+        <Plus onClick={onClick} size={15} />
+    );
 };
 
 export default PlusMinusIcon;
 
 const Plus = styled(FaPlus)`
-    background-color: #97bdaf;
-    color: white;
-    height: 0.9rem;
-    width: 1.4rem;
-    border-radius: 20px;
-    padding: 0.4rem;
+    color: #97bdaf;
+    padding: 0.4rem 0 0 0;
+    margin-top: 10px;
+    height: 1rem;
+    min-width: 1rem;
+    max-width: 1rem;
 `;
 const Minus = styled(FaMinus)`
-    background-color: #acacac;
-    color: white;
-    height: 0.9rem;
-    width: 1.4rem;
-    border-radius: 20px;
+    color: #acacac;
     padding: 0.4rem;
+    margin-top: 10px;
+    height: 1rem;
+    min-width: 1rem;
+    max-width: 1rem;
 `;
