@@ -23,7 +23,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
     const [currentTarget, setSetCurrentTarget] = useState<FirstOptionTypes>();
 
     // const detailOptionTarget = options?.find(item => item.name === checked[0]);
-    console.log(form);
+
     //렌더링 즉시 기존에 체크 되었던 값으로 초기화
     useEffect(() => {
         const globalValue = form[cardIndex].value;
