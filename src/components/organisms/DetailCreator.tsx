@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { OneCardTypes, OneQuestionTypes } from "../../types/SelectTypes";
+import {
+    CardTypes,
+    OneCardTypes,
+    OneQuestionTypes,
+} from "../../types/SelectTypes";
 import DefaultInput from "../atoms/DefaultInput";
 import DefaultSelect from "../atoms/DefaultSelect";
 import PlusMinusIcon from "../atoms/PlusMinusIcon";
@@ -28,36 +32,50 @@ const kindOfOptions = [
 
 interface LocalProps {
     item: OneQuestionTypes;
-    onDeleteRow: (rowIndex: number) => void;
+    index: number;
+    onDeleteRow: (id: number) => void;
+    setForm: React.Dispatch<React.SetStateAction<CardTypes>>;
 }
 
-const DetailCreator = ({ onDeleteRow, item }: LocalProps) => {
+const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
     const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         console.log(e.target.value);
+    };
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        const temp = { ...item, [name]: value };
+
+        setForm(prev => {
+            const tempForm = { ...prev };
+            tempForm.rows[index] = temp;
+            return tempForm;
+        });
     };
     return (
         <OptionBlock>
             <SecondProcess>
                 <InputRow title="세부 제목">
-                    <DefaultInput type="text" />
+                    <DefaultInput
+                        type="text"
+                        name={"title"}
+                        onChange={onChange}
+                        value={item.title}
+                    />
                 </InputRow>
                 <InputRow title="옵션 유형">
                     <DefaultSelect
+                        name={"type"}
                         options={kindOfOptions}
                         onChange={onSelect}
                     />
                 </InputRow>
                 <InputRow title="옵션명" flexDirection="column">
                     <EachOptionRow>
-                        <DefaultInput type="text" placeholder={`옵션1`} />
-                        <PlusMinusIcon isActive={true} />
-                    </EachOptionRow>
-                    <EachOptionRow>
-                        <DefaultInput type="text" placeholder={`옵션1`} />
-                        <PlusMinusIcon isActive={true} />
-                    </EachOptionRow>
-                    <EachOptionRow>
-                        <DefaultInput type="text" placeholder={`옵션1`} />
+                        <DefaultInput
+                            type="text"
+                            name={"name"}
+                            placeholder={`옵션1`}
+                        />
                         <PlusMinusIcon isActive={false} />
                         <PlusMinusIcon isActive={true} />
                     </EachOptionRow>
@@ -86,10 +104,10 @@ const OptionBlock = styled.div`
 
 const CommonDiv = styled.div`
     display: flex;
-    flex: 1;
+    min-height: 10rem;
+    width: 100%;
     padding: 1rem;
     flex-direction: column;
-    justify-content: flex-start;
     & + & {
         border-left: 1px dotted gray;
     }
@@ -119,7 +137,7 @@ const DeleteButton = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 3rem;
+    width: 10%;
     background: #e3e3e3;
     color: gray;
     border-top-right-radius: 20px;

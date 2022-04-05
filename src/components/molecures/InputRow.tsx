@@ -28,7 +28,6 @@ export default InputRow;
 
 const Wrapper = styled.div`
     display: flex;
-    flex: 1;
     flex-direction: row;
     align-items: flex-start;
     margin: 0.4rem 0;

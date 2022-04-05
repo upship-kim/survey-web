@@ -41,9 +41,8 @@ const SurveyCreator = () => {
 
     const onAddRow = () => {
         const temp = { ...form };
-        console.log(form.rows[form.rows.length - 1].id + 1);
         temp.rows.push({
-            ...temp.rows[0],
+            ...initForm.rows[0],
             id: Number(form.rows[form.rows.length - 1].id + 1),
         });
         setForm(temp);
@@ -55,9 +54,9 @@ const SurveyCreator = () => {
         setForm(temp);
     };
 
-    useEffect(() => {
-        return () => {};
-    }, [form]);
+    // useEffect(() => {
+    //     return () => {};
+    // }, [form]);
 
     return (
         <Container>
@@ -83,8 +82,10 @@ const SurveyCreator = () => {
             </AddButtonRow>
             {form.rows.map((item, index) => (
                 <DetailCreator
-                    key={index}
+                    key={item.id}
+                    index={index}
                     item={item}
+                    setForm={setForm}
                     onDeleteRow={onDeleteRow}
                 />
             ))}
