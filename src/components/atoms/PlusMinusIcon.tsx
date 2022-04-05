@@ -23,6 +23,7 @@ const Plus = styled(FaPlus)`
     height: 1rem;
     min-width: 1rem;
     max-width: 1rem;
+    cursor: pointer;
 `;
 const Minus = styled(FaMinus)`
     color: #acacac;
@@ -31,4 +32,5 @@ const Minus = styled(FaMinus)`
     height: 1rem;
     min-width: 1rem;
     max-width: 1rem;
+    cursor: pointer;
 `;

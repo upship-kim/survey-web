@@ -26,6 +26,7 @@ const Styledbutton = styled.div<{ type: buttonTypes }>`
     padding: 0.6rem 2rem;
     font-size: 1.1rem;
     font-weight: 800;
+    cursor: pointer;
     background: ${({ type }) => (type === "cancle" ? "#eeeeee" : "#204669")};
     color: ${({ type }) => (type === "cancle" ? "gray" : "#eeeeee")};
 `;

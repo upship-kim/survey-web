@@ -7,6 +7,7 @@ import DefaultLabel from "../atoms/DefaultLabel";
 interface LocalProps extends FirstOptionTypes {
     type: number;
     name: string;
+    id: number;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     checked: boolean;
     img?: string | undefined;
@@ -18,6 +19,7 @@ const CheckedLabel = ({
     onChange,
     checked,
     img,
+    id,
     detailTitle,
 }: LocalProps) => {
     const CheckComponent = () => {

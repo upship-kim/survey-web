@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedFormAtom } from "../../atom/SurveyAtom";
@@ -244,8 +244,9 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                     <DefaultInput />
                 ) : (
                     options.map((item, index) => (
-                        <div key={index}>
+                        <div key={item.id}>
                             <CheckedLabel
+                                id={item.id}
                                 name={item.name}
                                 detailTitle={item.detailTitle}
                                 checked={checked.includes(item.name)}

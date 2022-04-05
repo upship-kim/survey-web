@@ -58,8 +58,9 @@ const DetailOptionBox = ({
                         detailOptionList !== undefined &&
                         detailOptionList.map(item => (
                             <CheckedLabel
-                                key={item.name}
+                                key={item.id}
                                 name={item.name}
+                                id={item.id}
                                 detailTitle={detailTitle}
                                 img={item.img}
                                 checked={
