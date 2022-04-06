@@ -29,22 +29,6 @@ export const kindOfOptions = [
         type: 3,
     },
 ];
-const optionInit: FirstOptionTypes = {
-    id: 1,
-    name: "",
-    type: 0,
-    detailTitle: "",
-    options: [],
-};
-const multiOptionInit = {
-    id: 1,
-    name: "",
-    type: 0,
-    detailTitle: "",
-    options: [
-        // { id: 1, name: "", img: "" }
-    ],
-};
 
 interface LocalProps {
     item: OneQuestionTypes;
@@ -62,7 +46,18 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
         const temp = {
             ...item,
             [name]: Number(type),
-            options: Number(type) > 0 ? [optionInit] : [],
+            options:
+                Number(type) > 0
+                    ? [
+                          {
+                              id: 1,
+                              name: "",
+                              type: 0,
+                              detailTitle: "",
+                              options: [],
+                          },
+                      ]
+                    : [],
         };
         console.log(item, temp);
         setForm(prev => {
@@ -99,7 +94,13 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
     const onAddOption = () => {
         const temp = { ...item };
         if (item.options?.length === 0) {
-            item.options.push(optionInit);
+            item.options.push({
+                id: 1,
+                name: "",
+                type: 0,
+                detailTitle: "",
+                options: [],
+            });
         } else {
             temp?.options?.push({
                 name: "",
