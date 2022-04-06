@@ -13,15 +13,15 @@ const initForm: CardTypes = {
         {
             id: 1,
             title: "",
-            type: 1,
+            type: 0,
             options: [
-                {
-                    id: 1,
-                    name: "",
-                    type: 1,
-                    detailTitle: "",
-                    options: [{ id: 1, name: "", img: "" }],
-                },
+                // {
+                //     id: 1,
+                //     name: "",
+                //     type: 0,
+                //     detailTitle: "",
+                //     options: [{ id: 1, name: "", img: "" }],
+                // },
             ],
         },
     ],
@@ -29,15 +29,15 @@ const initForm: CardTypes = {
 const rowInit = {
     id: 1,
     title: "",
-    type: 1,
+    type: 0,
     options: [
-        {
-            id: 1,
-            name: "",
-            type: 1,
-            detailTitle: "",
-            options: [{ id: 1, name: "", img: "" }],
-        },
+        // {
+        //     id: 1,
+        //     name: "",
+        //     type: 0,
+        //     detailTitle: "",
+        //     options: [{ id: 1, name: "", img: "" }],
+        // },
     ],
 };
 

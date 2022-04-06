@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 type OptionTypes = {
     name: string | number;
+    type?: number;
 };
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
     options?: OptionTypes[];
@@ -14,7 +15,10 @@ const DefaultSelect = ({ options, ...props }: SelectProps) => {
             <DefaultOption value="선택">선택</DefaultOption>
             {options &&
                 options.map((item, index) => (
-                    <option key={index} value={item.name}>
+                    <option
+                        key={index}
+                        value={item?.type !== undefined ? item.type : item.name}
+                    >
                         {item.name}
                     </option>
                 ))}

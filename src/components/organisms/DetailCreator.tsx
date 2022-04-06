@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import {
     CardTypes,
-    OneCardTypes,
     OneQuestionTypes,
+    FirstOptionTypes,
 } from "../../types/SelectTypes";
 import DefaultInput from "../atoms/DefaultInput";
 import DefaultSelect from "../atoms/DefaultSelect";
@@ -12,6 +12,10 @@ import InputRow from "../molecures/InputRow";
 import DetailOptionCreator from "./DetailOptionCreator";
 
 const kindOfOptions = [
+    {
+        name: "직접 입력형",
+        type: 0,
+    },
     {
         name: "단일 선택형 (단일 선택 적합)",
         type: 1,
@@ -24,11 +28,23 @@ const kindOfOptions = [
         name: "셀렉트 박스형 (4개 이상 선택)",
         type: 3,
     },
-    {
-        name: "직접 입력형",
-        type: 0,
-    },
 ];
+const optionInit: FirstOptionTypes = {
+    id: 1,
+    name: "",
+    type: 0,
+    detailTitle: "",
+    options: [],
+};
+const multiOptionInit = {
+    id: 1,
+    name: "",
+    type: 0,
+    detailTitle: "",
+    options: [
+        // { id: 1, name: "", img: "" }
+    ],
+};
 
 interface LocalProps {
     item: OneQuestionTypes;
@@ -39,7 +55,18 @@ interface LocalProps {
 
 const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
     const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(e.target.value);
+        const { name, value: type } = e.target;
+
+        const temp = {
+            ...item,
+            [name]: Number(type),
+            options: Number(type) > 0 ? [optionInit] : [],
+        };
+        setForm(prev => {
+            const tempForm = { ...prev };
+            tempForm.rows[index] = temp;
+            return tempForm;
+        });
     };
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -47,7 +74,57 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
         setForm(prev => {
             const tempForm = { ...prev };
             tempForm.rows[index] = temp;
-            console.log("tempForm", tempForm);
+            return tempForm;
+        });
+    };
+    const onOptionChange = (
+        e: React.ChangeEvent<HTMLInputElement>,
+        optionIndex: number,
+    ) => {
+        const { value } = e.target;
+        const optionArray: FirstOptionTypes[] =
+            item?.options?.slice() as FirstOptionTypes[];
+        optionArray[optionIndex].name = value;
+        const temp = { ...item, options: optionArray };
+
+        setForm(prev => {
+            const tempForm = { ...prev };
+            tempForm.rows[index] = temp;
+            return tempForm;
+        });
+    };
+    const onAddOption = () => {
+        const temp = { ...item };
+        if (item.options?.length === 0) {
+            item.options.push(optionInit);
+        } else {
+            temp?.options?.push({
+                name: "",
+                type: 0,
+                detailTitle: "",
+                options: [],
+                id:
+                    (
+                        item.options![
+                            item.options!.length! - 1
+                        ] as FirstOptionTypes
+                    ).id + 1,
+            });
+        }
+        setForm(prev => {
+            const tempForm = { ...prev };
+            tempForm.rows[index] = temp;
+            return tempForm;
+        });
+    };
+    const onDeleteOption = (id: number) => {
+        console.log(id);
+        const newTemp = item.options?.filter(item => item.id !== id);
+        const temp = { ...item, options: newTemp };
+
+        setForm(prev => {
+            const tempForm = { ...prev };
+            tempForm.rows[index] = temp;
             return tempForm;
         });
     };
@@ -67,22 +144,43 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                         name={"type"}
                         options={kindOfOptions}
                         onChange={onSelect}
+                        value={item.type}
                     />
                 </InputRow>
-                <InputRow title="옵션명" flexDirection="column">
-                    <EachOptionRow>
-                        <DefaultInput
-                            type="text"
-                            name={"name"}
-                            placeholder={`옵션1`}
-                        />
-                        <PlusMinusIcon isActive={false} />
-                        <PlusMinusIcon isActive={true} />
-                    </EachOptionRow>
-                </InputRow>
+                {item.type > 0 && (
+                    <InputRow title="옵션명" flexDirection="column">
+                        {item.options !== undefined &&
+                            item.options?.map((option, optionIndex) => (
+                                <EachOptionRow key={option.id}>
+                                    <DefaultInput
+                                        type="text"
+                                        name={"name"}
+                                        placeholder={`옵션1`}
+                                        value={option.name}
+                                        onChange={e =>
+                                            onOptionChange(e, optionIndex)
+                                        }
+                                    />
+                                    {item.options?.length ===
+                                        optionIndex + 1 && (
+                                        <PlusMinusIcon
+                                            isActive={false}
+                                            onClick={onAddOption}
+                                        />
+                                    )}
+                                    <PlusMinusIcon
+                                        isActive={true}
+                                        onClick={() =>
+                                            onDeleteOption(option.id)
+                                        }
+                                    />
+                                </EachOptionRow>
+                            ))}
+                    </InputRow>
+                )}
             </SecondProcess>
             <ThirdProcess>
-                <DetailOptionCreator />
+                {item.type > 0 && <DetailOptionCreator />}
             </ThirdProcess>
             <DeleteButton onClick={() => onDeleteRow(item.id)}>
                 삭제
