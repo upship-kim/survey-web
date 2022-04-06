@@ -44,10 +44,10 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         const temp = { ...item, [name]: value };
-
         setForm(prev => {
             const tempForm = { ...prev };
             tempForm.rows[index] = temp;
+            console.log("tempForm", tempForm);
             return tempForm;
         });
     };

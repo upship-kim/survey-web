@@ -26,6 +26,20 @@ const initForm: CardTypes = {
         },
     ],
 };
+const rowInit = {
+    id: 1,
+    title: "",
+    type: 1,
+    options: [
+        {
+            id: 1,
+            name: "",
+            type: 1,
+            detailTitle: "",
+            options: [{ id: 1, name: "", img: "" }],
+        },
+    ],
+};
 
 const SurveyCreator = () => {
     const [totalData, setTotalData] = useState<CardTypes[]>();
@@ -38,13 +52,16 @@ const SurveyCreator = () => {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
     };
-
     const onAddRow = () => {
         const temp = { ...form };
-        temp.rows.push({
-            ...initForm.rows[0],
-            id: Number(form.rows[form.rows.length - 1].id + 1),
-        });
+        if (form.rows.length === 0) {
+            temp.rows.push(rowInit);
+        } else {
+            temp.rows.push({
+                ...rowInit,
+                id: form.rows[form.rows.length - 1].id + 1,
+            });
+        }
         setForm(temp);
     };
     const onDeleteRow = (id: number) => {
@@ -54,9 +71,11 @@ const SurveyCreator = () => {
         setForm(temp);
     };
 
-    // useEffect(() => {
-    //     return () => {};
-    // }, [form]);
+    useEffect(() => {
+        console.log(form, "form");
+
+        return () => {};
+    }, [form]);
 
     return (
         <Container>
