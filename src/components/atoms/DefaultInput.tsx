@@ -16,6 +16,7 @@ const StyledInput = styled.input<InputProps>`
     border: 0px solid gray;
     border-bottom: 1px solid #acacac;
     outline: none;
+    background-color: transparent;
     & input[checkbox] {
         cursor: pointer;
     }

@@ -46,7 +46,7 @@ const SurveyCreator = () => {
     const [form, setForm] = useState<CardTypes>(initForm);
     const [rowId, setRowId] = useState<number>(1);
     const [isEtc, setIsEtc] = useState<boolean>(true);
-
+    console.log(form);
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const { name, value } = e.target;
@@ -54,11 +54,14 @@ const SurveyCreator = () => {
     };
     const onAddRow = () => {
         const temp = { ...form };
+        console.log("form", form);
         if (form.rows.length === 0) {
             temp.rows.push(rowInit);
         } else {
             temp.rows.push({
-                ...rowInit,
+                title: "",
+                type: 0,
+                options: [],
                 id: form.rows[form.rows.length - 1].id + 1,
             });
         }
@@ -72,7 +75,7 @@ const SurveyCreator = () => {
     };
 
     useEffect(() => {
-        console.log(form, "form");
+        // console.log(form, "form");
 
         return () => {};
     }, [form]);

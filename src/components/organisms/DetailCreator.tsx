@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import {
     CardTypes,
@@ -11,7 +11,7 @@ import PlusMinusIcon from "../atoms/PlusMinusIcon";
 import InputRow from "../molecures/InputRow";
 import DetailOptionCreator from "./DetailOptionCreator";
 
-const kindOfOptions = [
+export const kindOfOptions = [
     {
         name: "직접 입력형",
         type: 0,
@@ -54,6 +54,8 @@ interface LocalProps {
 }
 
 const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
+    const [optionIndex, setOptionIndex] = useState<number>(0);
+
     const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value: type } = e.target;
 
@@ -62,6 +64,7 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
             [name]: Number(type),
             options: Number(type) > 0 ? [optionInit] : [],
         };
+        console.log(item, temp);
         setForm(prev => {
             const tempForm = { ...prev };
             tempForm.rows[index] = temp;
@@ -118,7 +121,8 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
         });
     };
     const onDeleteOption = (id: number) => {
-        console.log(id);
+        // console.log(id);
+        if (item.options?.length === 1) return;
         const newTemp = item.options?.filter(item => item.id !== id);
         const temp = { ...item, options: newTemp };
 
@@ -127,6 +131,9 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
             tempForm.rows[index] = temp;
             return tempForm;
         });
+    };
+    const onOptionFocus = (optionIndex: number) => {
+        setOptionIndex(optionIndex);
     };
     return (
         <OptionBlock>
@@ -160,6 +167,9 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                                         onChange={e =>
                                             onOptionChange(e, optionIndex)
                                         }
+                                        onFocus={() =>
+                                            onOptionFocus(optionIndex)
+                                        }
                                     />
                                     {item.options?.length ===
                                         optionIndex + 1 && (
@@ -168,19 +178,33 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                                             onClick={onAddOption}
                                         />
                                     )}
-                                    <PlusMinusIcon
-                                        isActive={true}
-                                        onClick={() =>
-                                            onDeleteOption(option.id)
-                                        }
-                                    />
+                                    {item.options?.length !== 1 && (
+                                        <PlusMinusIcon
+                                            isActive={true}
+                                            onClick={() =>
+                                                onDeleteOption(option.id)
+                                            }
+                                        />
+                                    )}
                                 </EachOptionRow>
                             ))}
                     </InputRow>
                 )}
             </SecondProcess>
-            <ThirdProcess>
-                {item.type > 0 && <DetailOptionCreator />}
+            <ThirdProcess
+                style={{
+                    visibility:
+                        optionIndex !== undefined ? "visible" : "hidden",
+                }}
+            >
+                {item.type > 0 && (
+                    <DetailOptionCreator
+                        index={index}
+                        optionIndex={optionIndex}
+                        item={item}
+                        setForm={setForm}
+                    />
+                )}
             </ThirdProcess>
             <DeleteButton onClick={() => onDeleteRow(item.id)}>
                 삭제
@@ -227,6 +251,7 @@ const EachOptionRow = styled.div`
 `;
 
 const ThirdProcess = styled(CommonDiv)`
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     background: white;
