@@ -30,11 +30,13 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: flex-start;
     margin: 0.4rem 0;
 `;
 const TitleBlock = styled.div`
     display: flex;
     flex: 0.3;
+    max-width: 8rem;
     padding: 12px 0;
     justify-content: flex-start;
     align-items: center;

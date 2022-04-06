@@ -12,12 +12,13 @@ const AdminPage = () => {
             <Container>
                 <PlusMinusIcon isActive />
                 <PlusMinusIcon isActive={false} />
+                <BlockTitle leftText={"작성한 설문 리스트"} hasRightText={""} />
+                <SurveyListBox>설문 리스트 박스 </SurveyListBox>
                 <BlockTitle
                     leftText={"선택 입력사항 등록/수정"}
                     hasRightText={""}
                 />
                 <SurveyCreator />
-                <SurveyListBox>설문 리스트 박스 </SurveyListBox>
             </Container>
         </>
     );

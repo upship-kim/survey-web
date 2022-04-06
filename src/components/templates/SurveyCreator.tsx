@@ -44,9 +44,7 @@ const rowInit = {
 const SurveyCreator = () => {
     const [totalData, setTotalData] = useState<CardTypes[]>();
     const [form, setForm] = useState<CardTypes>(initForm);
-    const [rowId, setRowId] = useState<number>(1);
-    const [isEtc, setIsEtc] = useState<boolean>(true);
-    console.log(form);
+
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const { name, value } = e.target;
@@ -54,7 +52,6 @@ const SurveyCreator = () => {
     };
     const onAddRow = () => {
         const temp = { ...form };
-        console.log("form", form);
         if (form.rows.length === 0) {
             temp.rows.push(rowInit);
         } else {
@@ -75,8 +72,6 @@ const SurveyCreator = () => {
     };
 
     useEffect(() => {
-        // console.log(form, "form");
-
         return () => {};
     }, [form]);
 
@@ -91,6 +86,7 @@ const SurveyCreator = () => {
                             style={{ width: "80%" }}
                             value={form.title}
                             onChange={onChange}
+                            placeholder={"설문 항목의 타이틀 명을 입력해주세요"}
                         />
                     </InputRow>
                 </FirstProcess>

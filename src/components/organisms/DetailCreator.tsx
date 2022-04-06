@@ -145,6 +145,7 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                         name={"title"}
                         onChange={onChange}
                         value={item.title}
+                        placeholder={`설문 항목의 세부 제목을 입력해주세요`}
                     />
                 </InputRow>
                 <InputRow title="옵션 유형">
@@ -163,7 +164,7 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                                     <DefaultInput
                                         type="text"
                                         name={"name"}
-                                        placeholder={`옵션1`}
+                                        placeholder={`옵션명`}
                                         value={option.name}
                                         onChange={e =>
                                             onOptionChange(e, optionIndex)
@@ -192,21 +193,16 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                     </InputRow>
                 )}
             </SecondProcess>
-            <ThirdProcess
-                style={{
-                    visibility:
-                        optionIndex !== undefined ? "visible" : "hidden",
-                }}
-            >
-                {item.type > 0 && (
+            {item.type > 0 && (
+                <ThirdProcess>
                     <DetailOptionCreator
                         index={index}
                         optionIndex={optionIndex}
                         item={item}
                         setForm={setForm}
                     />
-                )}
-            </ThirdProcess>
+                </ThirdProcess>
+            )}
             <DeleteButton onClick={() => onDeleteRow(item.id)}>
                 삭제
             </DeleteButton>
