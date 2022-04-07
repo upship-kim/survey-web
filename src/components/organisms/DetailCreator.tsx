@@ -9,6 +9,7 @@ import DefaultInput from "../atoms/DefaultInput";
 import DefaultSelect from "../atoms/DefaultSelect";
 import PlusMinusIcon from "../atoms/PlusMinusIcon";
 import InputRow from "../molecures/InputRow";
+import { ModeType } from "../pages/AdminPage";
 import DetailOptionCreator from "./DetailOptionCreator";
 
 export const kindOfOptions = [
@@ -35,9 +36,16 @@ interface LocalProps {
     index: number;
     onDeleteRow: (id: number) => void;
     setForm: React.Dispatch<React.SetStateAction<CardTypes>>;
+    mode: ModeType;
 }
 
-const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
+const DetailCreator = ({
+    onDeleteRow,
+    item,
+    setForm,
+    index,
+    mode,
+}: LocalProps) => {
     const [optionIndex, setOptionIndex] = useState<number>(0);
 
     const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -146,6 +154,7 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                         onChange={onChange}
                         value={item.title}
                         placeholder={`설문 항목의 세부 제목을 입력해주세요`}
+                        disabled={mode === "read"}
                     />
                 </InputRow>
                 <InputRow title="옵션 유형">
@@ -154,6 +163,7 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                         options={kindOfOptions}
                         onChange={onSelect}
                         value={item.type}
+                        disabled={mode === "read"}
                     />
                 </InputRow>
                 {item.type > 0 && (
@@ -172,22 +182,25 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                                         onFocus={() =>
                                             onOptionFocus(optionIndex)
                                         }
+                                        readOnly={mode === "read"}
                                     />
-                                    {item.options?.length ===
-                                        optionIndex + 1 && (
-                                        <PlusMinusIcon
-                                            isActive={false}
-                                            onClick={onAddOption}
-                                        />
-                                    )}
-                                    {item.options?.length !== 1 && (
-                                        <PlusMinusIcon
-                                            isActive={true}
-                                            onClick={() =>
-                                                onDeleteOption(option.id)
-                                            }
-                                        />
-                                    )}
+                                    {mode !== "read" &&
+                                        item.options?.length ===
+                                            optionIndex + 1 && (
+                                            <PlusMinusIcon
+                                                isActive={false}
+                                                onClick={onAddOption}
+                                            />
+                                        )}
+                                    {mode !== "read" &&
+                                        item.options?.length !== 1 && (
+                                            <PlusMinusIcon
+                                                isActive={true}
+                                                onClick={() =>
+                                                    onDeleteOption(option.id)
+                                                }
+                                            />
+                                        )}
                                 </EachOptionRow>
                             ))}
                     </InputRow>
@@ -200,12 +213,15 @@ const DetailCreator = ({ onDeleteRow, item, setForm, index }: LocalProps) => {
                         optionIndex={optionIndex}
                         item={item}
                         setForm={setForm}
+                        mode={mode}
                     />
                 </ThirdProcess>
             )}
-            <DeleteButton onClick={() => onDeleteRow(item.id)}>
-                삭제
-            </DeleteButton>
+            {mode !== "read" && index !== 0 && (
+                <DeleteButton onClick={() => onDeleteRow(item.id)}>
+                    삭제
+                </DeleteButton>
+            )}
         </OptionBlock>
     );
 };

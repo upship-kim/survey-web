@@ -11,6 +11,7 @@ import DefaultSelect from "../atoms/DefaultSelect";
 import DefaultText from "../atoms/DefaultText";
 import PlusMinusIcon from "../atoms/PlusMinusIcon";
 import InputRow from "../molecures/InputRow";
+import { ModeType } from "../pages/AdminPage";
 import { kindOfOptions } from "./DetailCreator";
 
 interface LocalProps {
@@ -18,13 +19,14 @@ interface LocalProps {
     item: OneQuestionTypes;
     setForm: React.Dispatch<React.SetStateAction<CardTypes>>;
     index: number;
+    mode: ModeType;
 }
-// const detailOptionInit = { id: 1, name: "", img: "" };
 const DetailOptionCreator = ({
     optionIndex,
     item,
     setForm,
     index,
+    mode,
 }: LocalProps) => {
     const target = (item.options as FirstOptionTypes[])[optionIndex as number];
 
@@ -152,6 +154,7 @@ const DetailOptionCreator = ({
                     placeholder={`${
                         target.name === "" ? "해당 옵션" : target.name
                     } 의 상세 타이틀을 입력해주세요`}
+                    disabled={mode === "read"}
                 />
             </InputRow>
             <InputRow title={`상세 옵션 유형`}>
@@ -160,6 +163,7 @@ const DetailOptionCreator = ({
                     options={kindOfOptions}
                     onChange={onSelect}
                     value={target?.type}
+                    disabled={mode === "read"}
                 />
             </InputRow>
             {target?.type > 0 && (
@@ -174,6 +178,7 @@ const DetailOptionCreator = ({
                                         placeholder={`옵션명을 입력해주세요`}
                                         onChange={e => onOptionChange(e, num)}
                                         value={detail.name}
+                                        disabled={mode === "read"}
                                     />
                                     <DefaultInput
                                         type="text"
@@ -181,23 +186,26 @@ const DetailOptionCreator = ({
                                         placeholder={`이미지 주소(url)를 입력해주세요`}
                                         onChange={e => onOptionChange(e, num)}
                                         value={detail.img}
+                                        disabled={mode === "read"}
                                     />
                                 </DetailOptionRow>
                                 <DetailIconColumn>
-                                    {target?.options?.length === num + 1 && (
-                                        <PlusMinusIcon
-                                            isActive={false}
-                                            onClick={onAddOption}
-                                        />
-                                    )}
-                                    {target?.options?.length !== 1 && (
-                                        <PlusMinusIcon
-                                            isActive={true}
-                                            onClick={() =>
-                                                onDeleteOption(detail.id)
-                                            }
-                                        />
-                                    )}
+                                    {mode !== "read" &&
+                                        target?.options?.length === num + 1 && (
+                                            <PlusMinusIcon
+                                                isActive={false}
+                                                onClick={onAddOption}
+                                            />
+                                        )}
+                                    {mode !== "read" &&
+                                        target?.options?.length !== 1 && (
+                                            <PlusMinusIcon
+                                                isActive={true}
+                                                onClick={() =>
+                                                    onDeleteOption(detail.id)
+                                                }
+                                            />
+                                        )}
                                 </DetailIconColumn>
                             </DetailEachOptionRow>
                         ))}

@@ -1,3 +1,5 @@
+import { CardTypes } from "../types/SelectTypes";
+
 export const rowDatas = [
     {
         id: 1,
@@ -159,7 +161,7 @@ export const rowDatas = [
         ],
     },
     {
-        id: 3,
+        id: 4,
         title: "거실 선택",
         rows: [
             {
@@ -201,3 +203,21 @@ export const rowDatas = [
         ],
     },
 ];
+export const cardInitForm: CardTypes = {
+    id: 1,
+    title: "",
+    rows: [
+        {
+            id: 1,
+            title: "",
+            type: 0,
+            options: [],
+        },
+    ],
+};
+export const rowInit = {
+    id: 1,
+    title: "",
+    type: 0,
+    options: [],
+};

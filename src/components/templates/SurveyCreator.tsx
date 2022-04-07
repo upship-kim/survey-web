@@ -1,50 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { cardInitForm, rowInit } from "../../FormData/initData";
 import { CardTypes } from "../../types/SelectTypes";
 import DefaultButton from "../atoms/DefaultButton";
 import DefaultInput from "../atoms/DefaultInput";
 import InputRow from "../molecures/InputRow";
 import DetailCreator from "../organisms/DetailCreator";
+import { ModeType } from "../pages/AdminPage";
 
-const initForm: CardTypes = {
-    id: 1,
-    title: "",
-    rows: [
-        {
-            id: 1,
-            title: "",
-            type: 0,
-            options: [
-                // {
-                //     id: 1,
-                //     name: "",
-                //     type: 0,
-                //     detailTitle: "",
-                //     options: [{ id: 1, name: "", img: "" }],
-                // },
-            ],
-        },
-    ],
-};
-const rowInit = {
-    id: 1,
-    title: "",
-    type: 0,
-    options: [
-        // {
-        //     id: 1,
-        //     name: "",
-        //     type: 0,
-        //     detailTitle: "",
-        //     options: [{ id: 1, name: "", img: "" }],
-        // },
-    ],
-};
+interface LocalProps {
+    mode: ModeType;
+    form: CardTypes;
+    setForm: React.Dispatch<React.SetStateAction<CardTypes>>;
+}
 
-const SurveyCreator = () => {
-    const [totalData, setTotalData] = useState<CardTypes[]>();
-    const [form, setForm] = useState<CardTypes>(initForm);
-
+const SurveyCreator = ({ mode, form, setForm }: LocalProps) => {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
         const { name, value } = e.target;
@@ -72,11 +42,12 @@ const SurveyCreator = () => {
     };
 
     useEffect(() => {
+        console.log("form", form);
         return () => {};
     }, [form]);
 
     return (
-        <Container>
+        <Container mode={mode}>
             <TitleBlock>
                 <FirstProcess>
                     <InputRow title="설문 제목" flexDirection="column">
@@ -87,35 +58,40 @@ const SurveyCreator = () => {
                             value={form.title}
                             onChange={onChange}
                             placeholder={"설문 항목의 타이틀 명을 입력해주세요"}
+                            disabled={mode === "read"}
                         />
                     </InputRow>
                 </FirstProcess>
             </TitleBlock>
-            <AddButtonRow>
-                <DefaultButton
-                    type="submit"
-                    text="세부항목 추가"
-                    onClick={onAddRow}
-                />
-            </AddButtonRow>
-            {form.rows.map((item, index) => (
-                <DetailCreator
-                    key={item.id}
-                    index={index}
-                    item={item}
-                    setForm={setForm}
-                    onDeleteRow={onDeleteRow}
-                />
-            ))}
+            {mode !== "read" && (
+                <AddButtonRow>
+                    <DefaultButton
+                        type="cancle"
+                        text="세부항목 추가"
+                        onClick={onAddRow}
+                    />
+                </AddButtonRow>
+            )}
+            {form &&
+                form.rows.map((item, index) => (
+                    <DetailCreator
+                        key={item.id}
+                        index={index}
+                        item={item}
+                        setForm={setForm}
+                        onDeleteRow={onDeleteRow}
+                        mode={mode}
+                    />
+                ))}
         </Container>
     );
 };
 
 export default SurveyCreator;
 
-const Container = styled.div`
+const Container = styled.div<{ mode: ModeType }>`
     display: flex;
-    background-color: #eee;
+    background-color: ${({ mode }) => (mode !== "create" ? "#eee" : "#b7dcd1")};
     flex-direction: column;
     padding: 1rem;
 `;

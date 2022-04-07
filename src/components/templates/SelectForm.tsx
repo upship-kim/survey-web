@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { selectedCardIndexAtom, selectedFormAtom } from "../../atom/SurveyAtom";
-import { rowDatas } from "../../FormData/dummyData";
+import { rowDatas } from "../../FormData/initData";
 import SurveyCard from "../organisms/SurveyCard";
 
 const SelectForm = () => {
