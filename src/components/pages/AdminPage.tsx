@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { cardInitForm, rowDatas } from "../../FormData/initData";
 import { CardTypes } from "../../types/SelectTypes";
 import DefaultButton from "../atoms/DefaultButton";
+import DefaultText from "../atoms/DefaultText";
 import PlusMinusIcon from "../atoms/PlusMinusIcon";
 import BlockTitle from "../molecures/BlockTitle";
 import Header from "../molecures/Header";
@@ -87,6 +88,9 @@ const AdminPage = () => {
                             key={item.id}
                         >
                             {item.title}
+                            <div onClick={() => alert("삭제" + item.id)}>
+                                삭제
+                            </div>
                         </SurveyRow>
                     ))}
                 </SurveyListBox>
@@ -172,6 +176,7 @@ const SurveyRow = styled.div<{ isActive: boolean }>`
     background-color: ${({ isActive }) => (isActive ? "#8eb3a2" : "#eee")};
     border-radius: 10px;
     padding: 1rem;
+    justify-content: space-between;
     cursor: pointer;
     & + & {
         margin-top: 10px;
