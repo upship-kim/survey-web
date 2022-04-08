@@ -33,14 +33,47 @@ const AdminPage = () => {
         setFetchData(response.data.data);
     };
     const fetchSaveForm = async () => {
-        const response = await client.post("api/admin", form);
-        console.log(response);
+        try {
+            const response = await client.post("api/admin", form);
+            const { success, message } = response.data;
+            alert(message);
+            if (success) fetchList();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const fetchUpdateForm = async () => {
+        try {
+            const response = await client.patch(`api/admin/${form.id}`, form);
+            const { success, message } = response.data;
+            alert(message);
+            if (success) fetchList();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const fetchDeleteForm = async (id: number) => {
+        try {
+            if (window.confirm("정말 삭제하시겠습니까?")) {
+                const response = await client.delete(`api/admin/${id}`);
+                const { message } = response.data;
+                alert(message);
+                setItemId(null);
+                setForm(cardInitForm);
+                fetchList();
+            } else {
+                return;
+            }
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const onClick = (id: number) => {
         setItemId(id);
         setMode("read");
     };
+
     const onChangeMode = (mode: ModeType) => {
         setMode(mode);
         if (mode === "create") {
@@ -64,7 +97,7 @@ const AdminPage = () => {
     };
     const fetchUpdate = async () => {
         try {
-            alert("수정");
+            fetchUpdateForm();
             setMode("read");
         } catch (error) {}
     };
@@ -98,7 +131,7 @@ const AdminPage = () => {
                                 key={item.id}
                             >
                                 {item.title}
-                                <div onClick={() => alert("삭제" + item.id)}>
+                                <div onClick={() => fetchDeleteForm(item.id)}>
                                     삭제
                                 </div>
                             </SurveyRow>
