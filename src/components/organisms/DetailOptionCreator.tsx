@@ -22,18 +22,21 @@ interface LocalProps {
     mode: ModeType;
 }
 const DetailOptionCreator = ({
-    optionIndex,
+    optionIndex = 0,
     item,
     setForm,
     index,
     mode,
 }: LocalProps) => {
-    const target = (item.options as FirstOptionTypes[])[optionIndex as number];
-
+    const target =
+        (item.options as FirstOptionTypes[])[optionIndex as number] !==
+        undefined
+            ? (item.options as FirstOptionTypes[])[optionIndex as number]
+            : (item.options as FirstOptionTypes[])[0];
+    console.log(target);
     const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const { name, value: type } = e.target;
         const tempArray = item.options?.slice() as FirstOptionTypes[];
-        console.log(name, type);
 
         tempArray[optionIndex].options =
             Number(type) > 0 ? [{ id: 1, name: "", img: "" }] : [];
@@ -49,9 +52,7 @@ const DetailOptionCreator = ({
             return tempForm;
         });
     };
-    useEffect(() => {
-        console.log("target", item);
-    }, [item, optionIndex, target]);
+    useEffect(() => {}, [item, optionIndex, target]);
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -152,7 +153,7 @@ const DetailOptionCreator = ({
                     value={target?.detailTitle || ""}
                     onChange={onChange}
                     placeholder={`${
-                        target.name === "" ? "해당 옵션" : target.name
+                        target?.name.length < 1 ? "해당 옵션" : target?.name
                     } 의 상세 타이틀을 입력해주세요`}
                     disabled={mode === "read"}
                 />

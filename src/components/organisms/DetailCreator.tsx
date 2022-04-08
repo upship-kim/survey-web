@@ -169,24 +169,25 @@ const DetailCreator = ({
                 {item.type > 0 && (
                     <InputRow title="옵션명" flexDirection="column">
                         {item.options !== undefined &&
-                            item.options?.map((option, optionIndex) => (
+                            item.options?.map((option, index) => (
                                 <EachOptionRow key={option.id}>
                                     <DefaultInput
                                         type="text"
                                         name={"name"}
                                         placeholder={`옵션명`}
                                         value={option.name}
-                                        onChange={e =>
-                                            onOptionChange(e, optionIndex)
-                                        }
-                                        onFocus={() =>
-                                            onOptionFocus(optionIndex)
-                                        }
+                                        onChange={e => onOptionChange(e, index)}
+                                        onFocus={() => onOptionFocus(index)}
                                         readOnly={mode === "read"}
+                                        style={{
+                                            borderBottom:
+                                                optionIndex === index
+                                                    ? "2px solid #142fb9"
+                                                    : "",
+                                        }}
                                     />
                                     {mode !== "read" &&
-                                        item.options?.length ===
-                                            optionIndex + 1 && (
+                                        item.options?.length === index + 1 && (
                                             <PlusMinusIcon
                                                 isActive={false}
                                                 onClick={onAddOption}
