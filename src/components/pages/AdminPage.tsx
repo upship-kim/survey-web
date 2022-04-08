@@ -32,6 +32,10 @@ const AdminPage = () => {
         const response = await client.get("api/admin");
         setFetchData(response.data.data);
     };
+    const fetchSaveForm = async () => {
+        const response = await client.post("api/admin", form);
+        console.log(response);
+    };
 
     const onClick = (id: number) => {
         setItemId(id);
@@ -66,7 +70,8 @@ const AdminPage = () => {
     };
     const fetchCreate = async () => {
         try {
-            alert("새로만들기!");
+            // alert("새로만들기!");
+            fetchSaveForm();
             setMode("read");
         } catch (error) {}
     };

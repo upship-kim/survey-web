@@ -258,7 +258,8 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                     ))
                 )}
 
-                {detailOptionList &&
+                {type !== 4 &&
+                    detailOptionList &&
                     detailOptionList.map((item, index) => (
                         <DetailOptionBox
                             key={index}

@@ -146,18 +146,6 @@ const DetailOptionCreator = ({
                 bold
                 size="large"
             />
-            <InputRow title={`상세 타이틀`}>
-                <DefaultInput
-                    type="text"
-                    name={"detailTitle"}
-                    value={target?.detailTitle || ""}
-                    onChange={onChange}
-                    placeholder={`${
-                        target?.name.length < 1 ? "해당 옵션" : target?.name
-                    } 의 상세 타이틀을 입력해주세요`}
-                    disabled={mode === "read"}
-                />
-            </InputRow>
             <InputRow title={`상세 옵션 유형`}>
                 <DefaultSelect
                     name={"type"}
@@ -167,7 +155,21 @@ const DetailOptionCreator = ({
                     disabled={mode === "read"}
                 />
             </InputRow>
-            {target?.type > 0 && (
+            {target?.type !== 4 && (
+                <InputRow title={`상세 타이틀`}>
+                    <DefaultInput
+                        type="text"
+                        name={"detailTitle"}
+                        value={target?.detailTitle || ""}
+                        onChange={onChange}
+                        placeholder={`${
+                            target?.name.length < 1 ? "해당 옵션" : target?.name
+                        } 의 상세 타이틀을 입력해주세요`}
+                        disabled={mode === "read"}
+                    />
+                </InputRow>
+            )}
+            {target?.type > 0 && target?.type < 4 && (
                 <InputRow title="상세 옵션명" flexDirection="column">
                     {target?.options !== undefined &&
                         target.options.map((detail, num) => (

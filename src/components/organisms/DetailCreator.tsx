@@ -14,6 +14,10 @@ import DetailOptionCreator from "./DetailOptionCreator";
 
 export const kindOfOptions = [
     {
+        name: "세부 옵션 없음",
+        type: 4,
+    },
+    {
         name: "직접 입력형",
         type: 0,
     },
@@ -60,7 +64,7 @@ const DetailCreator = ({
                           {
                               id: 1,
                               name: "",
-                              type: 0,
+                              type: 4,
                               detailTitle: "",
                               options: [],
                           },
@@ -105,14 +109,14 @@ const DetailCreator = ({
             item.options.push({
                 id: 1,
                 name: "",
-                type: 0,
+                type: 4,
                 detailTitle: "",
                 options: [],
             });
         } else {
             temp?.options?.push({
                 name: "",
-                type: 0,
+                type: 4,
                 detailTitle: "",
                 options: [],
                 id:

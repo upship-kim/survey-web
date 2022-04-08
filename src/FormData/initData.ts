@@ -204,7 +204,7 @@ export const rowDatas = [
     },
 ];
 export const cardInitForm: CardTypes = {
-    id: 1,
+    id: 0,
     title: "",
     rows: [
         {
