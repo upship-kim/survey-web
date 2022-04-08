@@ -33,9 +33,9 @@ const DetailOptionCreator = ({
         undefined
             ? (item.options as FirstOptionTypes[])[optionIndex as number]
             : (item.options as FirstOptionTypes[])[0];
-    console.log(target);
+
     const onSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const { name, value: type } = e.target;
+        const { value: type } = e.target;
         const tempArray = item.options?.slice() as FirstOptionTypes[];
 
         tempArray[optionIndex].options =

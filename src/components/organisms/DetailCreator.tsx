@@ -67,7 +67,7 @@ const DetailCreator = ({
                       ]
                     : [],
         };
-        console.log(item, temp);
+
         setForm(prev => {
             const tempForm = { ...prev };
             tempForm.rows[index] = temp;

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { cardInitForm, rowDatas } from "../../FormData/initData";
+import { cardInitForm } from "../../FormData/initData";
+import { client } from "../../lib/client";
 import { CardTypes } from "../../types/SelectTypes";
 import DefaultButton from "../atoms/DefaultButton";
-import DefaultText from "../atoms/DefaultText";
 import PlusMinusIcon from "../atoms/PlusMinusIcon";
 import BlockTitle from "../molecures/BlockTitle";
 import Header from "../molecures/Header";
@@ -12,13 +12,13 @@ import SurveyCreator from "../templates/SurveyCreator";
 export type ModeType = "read" | "create" | "modify";
 
 const AdminPage = () => {
-    const [fetchData, setFetchData] = useState<CardTypes[]>(rowDatas);
+    const [fetchData, setFetchData] = useState<CardTypes[]>([]);
     const [form, setForm] = useState<CardTypes>(cardInitForm);
     const [itemId, setItemId] = useState<number | null>(null);
     const [mode, setMode] = useState<ModeType>("read");
 
     useEffect(() => {
-        console.log("fetchData", fetchData);
+        fetchList();
     }, []);
 
     useEffect(() => {
@@ -27,6 +27,11 @@ const AdminPage = () => {
         }
         if (mode === "create") setForm(cardInitForm);
     }, [fetchData, itemId, mode]);
+
+    const fetchList = async () => {
+        const response = await client.get("api/admin");
+        setFetchData(response.data.data);
+    };
 
     const onClick = (id: number) => {
         setItemId(id);
@@ -54,7 +59,6 @@ const AdminPage = () => {
         }
     };
     const fetchUpdate = async () => {
-        console.log("submit", form);
         try {
             alert("수정");
             setMode("read");
@@ -81,18 +85,19 @@ const AdminPage = () => {
                     />
                 </BlockTitle>
                 <SurveyListBox>
-                    {fetchData.map((item, index) => (
-                        <SurveyRow
-                            isActive={item.id === itemId}
-                            onClick={() => onClick(item.id)}
-                            key={item.id}
-                        >
-                            {item.title}
-                            <div onClick={() => alert("삭제" + item.id)}>
-                                삭제
-                            </div>
-                        </SurveyRow>
-                    ))}
+                    {fetchData &&
+                        fetchData.map((item, index) => (
+                            <SurveyRow
+                                isActive={item.id === itemId}
+                                onClick={() => onClick(item.id)}
+                                key={item.id}
+                            >
+                                {item.title}
+                                <div onClick={() => alert("삭제" + item.id)}>
+                                    삭제
+                                </div>
+                            </SurveyRow>
+                        ))}
                 </SurveyListBox>
                 {(itemId || mode === "create") && (
                     <>

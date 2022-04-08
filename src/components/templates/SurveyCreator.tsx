@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { cardInitForm, rowInit } from "../../FormData/initData";
+import { rowInit } from "../../FormData/initData";
 import { CardTypes } from "../../types/SelectTypes";
 import DefaultButton from "../atoms/DefaultButton";
 import DefaultInput from "../atoms/DefaultInput";
@@ -42,7 +42,6 @@ const SurveyCreator = ({ mode, form, setForm }: LocalProps) => {
     };
 
     useEffect(() => {
-        console.log("form", form);
         return () => {};
     }, [form]);
 
