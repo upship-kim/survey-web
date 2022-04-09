@@ -4,6 +4,8 @@ import { cardInitForm } from "../../FormData/initData";
 import { client } from "../../lib/client";
 import { CardTypes } from "../../types/SelectTypes";
 import DefaultButton from "../atoms/DefaultButton";
+import DefaultText from "../atoms/DefaultText";
+import DefaultTitle from "../atoms/DefaultTitle";
 import PlusMinusIcon from "../atoms/PlusMinusIcon";
 import BlockTitle from "../molecures/BlockTitle";
 import Header from "../molecures/Header";
@@ -105,7 +107,6 @@ const AdminPage = () => {
     };
     const fetchCreate = async () => {
         try {
-            // alert("새로만들기!");
             fetchSaveForm();
             setMode("read");
         } catch (error) {}
@@ -119,11 +120,11 @@ const AdminPage = () => {
                     <DefaultButton
                         onClick={() => onChangeMode("create")}
                         text={"설문 추가"}
-                        type="submit"
+                        type="create"
                     />
                 </BlockTitle>
                 <SurveyListBox>
-                    {fetchData &&
+                    {fetchData.length > 0 ? (
                         fetchData.map((item, index) => (
                             <SurveyRow
                                 isActive={item.id === itemId}
@@ -135,7 +136,16 @@ const AdminPage = () => {
                                     삭제
                                 </div>
                             </SurveyRow>
-                        ))}
+                        ))
+                    ) : (
+                        <NoContents>
+                            <DefaultText
+                                text="작성된 설문이 없습니다."
+                                bold
+                                size={"large"}
+                            />
+                        </NoContents>
+                    )}
                 </SurveyListBox>
                 {(itemId || mode === "create") && (
                     <>
@@ -224,4 +234,11 @@ const SurveyRow = styled.div<{ isActive: boolean }>`
     & + & {
         margin-top: 10px;
     }
+`;
+const NoContents = styled.div`
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    align-items: center;
 `;

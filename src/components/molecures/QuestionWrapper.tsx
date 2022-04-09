@@ -12,7 +12,13 @@ interface LocalProps extends OneQuestionTypes {
     cardIndex: number;
 }
 
-const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
+const QuestionWrapper = ({
+    title,
+    type,
+    options,
+    cardIndex,
+    id,
+}: LocalProps) => {
     const [form, setForm] = useRecoilState(selectedFormAtom);
     //체크되어있는 항목들의 하위 옵션 박스
     const [detailOptionList, setDetailOptionList] = useState<
@@ -88,12 +94,26 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let temp = form.slice();
         const target = e.target.id;
+        const targetValue = e.target.value;
         let targetObj = options?.find(
             item => item.name === target,
         ) as FirstOptionTypes;
 
         setSetCurrentTarget(targetObj);
 
+        //직접입력 타입일 경우
+        if (type === 0) {
+            setForm(
+                temp.map(item =>
+                    item.index === cardIndex
+                        ? {
+                              ...item,
+                              value: [target],
+                          }
+                        : item,
+                ),
+            );
+        }
         //라디오 타입일 경우
         if (type === 1) {
             if (checked[0] !== target) {
@@ -104,7 +124,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                         item.index === cardIndex
                             ? {
                                   ...item,
-                                  value: [target],
+
                                   detailValue: {
                                       [targetObj.detailTitle]: [],
                                   },
@@ -171,10 +191,24 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
         detailTitle: string,
     ) => {
         const detailTarget = e.target.id;
-
+        const detailTargetValue = e.target.value;
         let temp = form.slice();
 
-        //세부 옵션이 라디오 타입일 경우
+        //세부 옵션이 직접입력 타입일 경우
+        if (detailType === 0) {
+            setForm(
+                temp.map(item =>
+                    item.index === cardIndex
+                        ? {
+                              ...item,
+                              detailValue: {
+                                  [detailTitle]: [detailTargetValue],
+                              },
+                          }
+                        : item,
+                ),
+            );
+        }
         if (detailType === 1) {
             setForm(
                 temp.map(item =>
@@ -233,16 +267,21 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
             );
         }
     };
-
+    console.log(options, detailOptionList);
     return (
         <Wrapper>
             <TitleBlock>
                 <DefaultText text={title} bold />
             </TitleBlock>
             <BodyBlock>
-                {options === undefined ? (
-                    <DefaultInput />
-                ) : (
+                {type === 0 && (
+                    <DefaultInput
+                        type="text"
+                        value={form[cardIndex].etc}
+                        onChange={onChange}
+                    />
+                )}
+                {options !== undefined &&
                     options.map((item, index) => (
                         <div key={item.id}>
                             <CheckedLabel
@@ -255,8 +294,7 @@ const QuestionWrapper = ({ title, type, options, cardIndex }: LocalProps) => {
                                 onChange={onChange}
                             />
                         </div>
-                    ))
-                )}
+                    ))}
 
                 {type !== 4 &&
                     detailOptionList &&

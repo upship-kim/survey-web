@@ -9,7 +9,7 @@ interface LocalProps extends FirstOptionTypes {
     name: string;
     id: number;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    checked: boolean;
+    checked?: boolean;
     img?: string | undefined;
 }
 
