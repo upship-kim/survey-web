@@ -37,7 +37,9 @@ const AdminPage = () => {
             const response = await client.post("api/admin", form);
             const { success, message } = response.data;
             alert(message);
-            if (success) fetchList();
+            if (success) {
+                fetchList();
+            }
         } catch (error) {
             console.log(error);
         }
@@ -113,8 +115,6 @@ const AdminPage = () => {
         <>
             <Header title="관리자 페이지" />
             <Container>
-                <PlusMinusIcon isActive />
-                <PlusMinusIcon isActive={false} />
                 <BlockTitle leftText={"작성한 설문 리스트"} hasRightText={""}>
                     <DefaultButton
                         onClick={() => onChangeMode("create")}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Route, Routes } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
 import "./App.css";
@@ -8,8 +9,10 @@ import SurveyPage from "./components/pages/SurveyPage";
 function App() {
     return (
         <RecoilRoot>
-            <SurveyPage />
-            <AdminPage />
+            <Routes>
+                <Route path="/" element={<SurveyPage />} />
+                <Route path="/admin" element={<AdminPage />} />
+            </Routes>
         </RecoilRoot>
     );
 }
