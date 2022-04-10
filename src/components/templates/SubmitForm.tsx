@@ -3,13 +3,13 @@ import styled from "styled-components";
 import DefaultButton from "../atoms/DefaultButton";
 
 interface LocalPorps {
-    onSubmit: () => void;
+    onSubmit: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
 const SubmitForm = ({ onSubmit }: LocalPorps) => {
     return (
-        <Wrapper>
-            <DefaultButton text="문의하기" onClick={onSubmit} type="submit" />
+        <Wrapper onClick={onSubmit}>
+            <DefaultButton text="문의하기" onClick={() => {}} type="submit" />
         </Wrapper>
     );
 };

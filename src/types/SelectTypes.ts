@@ -1,6 +1,13 @@
+export type CardTypes = {
+    id: number;
+    title: string;
+    rows: OneCardTypes;
+};
+
 export type OneCardTypes = OneQuestionTypes[];
 
 export interface OneQuestionTypes {
+    id: number;
     title: string;
     //하위 타입에 대한 명시
     type: number;
@@ -8,6 +15,8 @@ export interface OneQuestionTypes {
 }
 
 export interface FirstOptionTypes {
+    [index: string | number]: any;
+    id: number;
     name: string;
     //하위 타입에 대한 명시
     type: number;
@@ -16,6 +25,9 @@ export interface FirstOptionTypes {
 }
 
 export interface SecondsOptionTypes {
+    [index: string | number]: any;
+
+    id: number;
     name: string;
     img?: string;
 }

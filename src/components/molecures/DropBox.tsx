@@ -13,7 +13,8 @@ const DropBox = ({ data, cardIndex }: LocalProps) => {
         <Wrapper>
             {data.map(item => (
                 <QuestionWrapper
-                    key={item.title}
+                    key={item.id}
+                    id={item.id}
                     title={item.title}
                     type={item.type}
                     options={item.options}

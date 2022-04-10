@@ -1,4 +1,7 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
+import { basicFormAtom, selectedFormAtom } from "../../atom/SurveyAtom";
+import { client } from "../../lib/client";
 import Container from "../atoms/Container";
 import BlockTitle from "../molecures/BlockTitle";
 import Header from "../molecures/Header";
@@ -7,8 +10,23 @@ import SelectForm from "../templates/SelectForm";
 import SubmitForm from "../templates/SubmitForm";
 
 const SurveyPage = () => {
-    const onSubmit = () => {
-        alert("submit");
+    // const form = useRef<any>(null);
+
+    const basicState = useRecoilValue(basicFormAtom);
+    const selectedState = useRecoilValue(selectedFormAtom);
+
+    const onSubmit = async (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+
+        try {
+            await client.post("/api/survey", {
+                basicInfo: basicState,
+                selectedInfo: selectedState,
+            });
+        } catch (e) {
+            console.log(e);
+        }
+        console.log(basicState, selectedState);
     };
 
     return (
@@ -24,7 +42,6 @@ const SurveyPage = () => {
                     }
                 />
                 <SelectForm />
-
                 <SubmitForm onSubmit={onSubmit} />
             </Container>
         </>

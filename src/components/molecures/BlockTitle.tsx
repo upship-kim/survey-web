@@ -7,13 +7,18 @@ interface BlockTitleProps {
     hasRightText?: string;
 }
 
-const BlockTitle = ({ leftText, hasRightText }: BlockTitleProps) => {
+const BlockTitle: React.FC<BlockTitleProps> = ({
+    leftText,
+    hasRightText,
+    children,
+}) => {
     return (
         <Wrapper>
             <DefaultText text={leftText} size="large" bold />
             {hasRightText !== undefined && (
                 <DefaultText text={hasRightText} size="small" />
             )}
+            {children}
         </Wrapper>
     );
 };

@@ -33,17 +33,21 @@ const DetailOptionBox = ({
     detailTitle,
 }: DetailOptionBlockProps) => {
     const form = useRecoilValue(selectedFormAtom);
-
     const checkedList = form[cardIndex]?.detailValue[detailTitle];
-    console.log(checkedList);
     const selecetedValue = checkedList === undefined ? "선택" : checkedList[0];
+
+    if (type === 4) return null;
     return (
         form && (
             <DetailOptionBlock>
                 <DefaultText text={detailTitle || ""} bold />
                 <OptionBox>
                     {type === 0 ? (
-                        <DefaultInput type={"text"} />
+                        <DefaultInput
+                            type={"text"}
+                            value={checkedList}
+                            onChange={e => onDetailChange(e, type, detailTitle)}
+                        />
                     ) : type === 3 ? (
                         detailOptionList !== undefined && (
                             <DefaultSelect
@@ -58,8 +62,9 @@ const DetailOptionBox = ({
                         detailOptionList !== undefined &&
                         detailOptionList.map(item => (
                             <CheckedLabel
-                                key={item.name}
+                                key={item.id}
                                 name={item.name}
+                                id={item.id}
                                 detailTitle={detailTitle}
                                 img={item.img}
                                 checked={

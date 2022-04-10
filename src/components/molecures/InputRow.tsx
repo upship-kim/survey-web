@@ -28,14 +28,15 @@ export default InputRow;
 
 const Wrapper = styled.div`
     display: flex;
-    flex: 1;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: flex-start;
     margin: 0.4rem 0;
 `;
 const TitleBlock = styled.div`
     display: flex;
-    flex: 0.2;
+    flex: 0.3;
+    max-width: 8rem;
     padding: 12px 0;
     justify-content: flex-start;
     align-items: center;
@@ -45,11 +46,9 @@ const TitleBlock = styled.div`
 `;
 const InputBlock = styled.div<{ flexDirection: "row" | "column" }>`
     display: flex;
-    flex: 0.8;
-    height: 100%;
+    flex: 0.7;
+    /* height: 100%; */
     justify-content: center;
-    align-self: ${({ flexDirection }) =>
-        flexDirection === "column" ? "left" : "center"};
     flex-direction: ${({ flexDirection }) => flexDirection};
     @media screen and (max-width: 768px) {
         flex: 0.7;

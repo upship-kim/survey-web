@@ -11,10 +11,12 @@ export default DefaultInput;
 
 const StyledInput = styled.input<InputProps>`
     width: 100%;
+    height: 1rem;
     padding: 12px;
     border: 0px solid gray;
     border-bottom: 1px solid #acacac;
     outline: none;
+    background-color: transparent;
     & input[checkbox] {
         cursor: pointer;
     }
