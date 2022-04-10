@@ -3,7 +3,7 @@ type SelectedTypes = {
     [index: number]: any;
     index: number;
     title: string;
-    value: string[];
+    value: { [name: string]: string[] };
     detailValue: { [name: string]: string[] };
     etc: string;
 };

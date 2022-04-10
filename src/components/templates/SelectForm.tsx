@@ -25,7 +25,7 @@ const SelectForm = () => {
                         index: index,
                         etc: "",
                         title: item.title,
-                        value: [""],
+                        value: {},
                         detailValue: {},
                     };
                 }),

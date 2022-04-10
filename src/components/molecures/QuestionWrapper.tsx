@@ -28,13 +28,14 @@ const QuestionWrapper = ({
     const [detailChecked, setDetailChecked] = useState<string[]>([]);
     const [currentTarget, setSetCurrentTarget] = useState<FirstOptionTypes>();
 
+    const globalValue = form[cardIndex]?.value[title] || [];
     // const detailOptionTarget = options?.find(item => item.name === checked[0]);
 
+    console.log("globalValue", globalValue);
     //렌더링 즉시 기존에 체크 되었던 값으로 초기화
     useEffect(() => {
-        const globalValue = form[cardIndex].value;
         //기존 체크된 값 초기화
-        if (globalValue.length !== 0) {
+        if (globalValue?.length !== 0) {
             setChecked(globalValue);
         }
         return () => {
@@ -48,7 +49,7 @@ const QuestionWrapper = ({
         if (type === 1 || type === 0) {
             //체크된 값에 세부 옵션이 있다면 세부 옵션을 초기화함
             let initDetailOption = options?.find(
-                item => item.name === form[cardIndex].value[0],
+                item => item.name === globalValue[0],
             );
             if (initDetailOption?.options !== undefined) {
                 setDetailOptionList([initDetailOption]);
@@ -59,7 +60,7 @@ const QuestionWrapper = ({
         if (type === 2) {
             let temp: FirstOptionTypes[] = [];
             options?.forEach(item => {
-                if (form[cardIndex].value.includes(item.name)) {
+                if (globalValue.includes(item.name)) {
                     temp.push(item);
                 }
             });
@@ -92,6 +93,7 @@ const QuestionWrapper = ({
     };
 
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
         let temp = form.slice();
         const target = e.target.id;
         const targetValue = e.target.value;
@@ -108,7 +110,7 @@ const QuestionWrapper = ({
                     item.index === cardIndex
                         ? {
                               ...item,
-                              value: [target],
+                              value: { [title]: [target] },
                           }
                         : item,
                 ),
@@ -124,7 +126,7 @@ const QuestionWrapper = ({
                         item.index === cardIndex
                             ? {
                                   ...item,
-
+                                  value: { [title]: [target] },
                                   detailValue: {
                                       [targetObj.detailTitle]: [],
                                   },
@@ -150,7 +152,7 @@ const QuestionWrapper = ({
                     item.index === cardIndex
                         ? {
                               ...item,
-                              value: tempArray,
+                              value: { [title]: tempArray },
                               detailValue: {
                                   ...form[cardIndex].detailValue,
                                   [targetObj.detailTitle]: [],

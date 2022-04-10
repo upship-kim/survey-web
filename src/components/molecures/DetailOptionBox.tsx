@@ -33,9 +33,10 @@ const DetailOptionBox = ({
     detailTitle,
 }: DetailOptionBlockProps) => {
     const form = useRecoilValue(selectedFormAtom);
-    console.log(form);
     const checkedList = form[cardIndex]?.detailValue[detailTitle];
     const selecetedValue = checkedList === undefined ? "선택" : checkedList[0];
+    console.log(form, "form");
+
     return (
         form && (
             <DetailOptionBlock>
