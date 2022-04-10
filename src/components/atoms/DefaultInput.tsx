@@ -34,4 +34,7 @@ const StyledInput = styled.input<InputProps>`
     &:-ms-input-placeholder {
         color: #aaaaaa;
     }
+    &:invalid {
+        background-color: #eeeeee;
+    }
 `;

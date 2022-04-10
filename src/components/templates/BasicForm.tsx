@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
@@ -12,7 +13,13 @@ const BasicForm = () => {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setBasicState(prev => {
-            return { ...prev, [name]: value };
+            return {
+                ...prev,
+                [name]:
+                    name === "date"
+                        ? moment(value).format("yyyy-MM-DD")
+                        : value,
+            };
         });
     };
     const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -34,6 +41,7 @@ const BasicForm = () => {
                             <DefaultInput
                                 {...item.props}
                                 onChange={onChange}
+                                required
                                 value={basicState[item.props.name]}
                             />
                         )}
@@ -47,6 +55,7 @@ const BasicForm = () => {
                         <DefaultSelect
                             {...item.props}
                             onChange={onSelectChange}
+                            required
                             value={basicState[item.props.name]}
                         />
                     </InputRow>
