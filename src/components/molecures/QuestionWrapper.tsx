@@ -29,9 +29,7 @@ const QuestionWrapper = ({
     const [currentTarget, setSetCurrentTarget] = useState<FirstOptionTypes>();
 
     const globalValue = form[cardIndex]?.value[title] || [];
-    // const detailOptionTarget = options?.find(item => item.name === checked[0]);
 
-    console.log("globalValue", globalValue);
     //렌더링 즉시 기존에 체크 되었던 값으로 초기화
     useEffect(() => {
         //기존 체크된 값 초기화
@@ -110,7 +108,7 @@ const QuestionWrapper = ({
                     item.index === cardIndex
                         ? {
                               ...item,
-                              value: { [title]: [target] },
+                              value: { [title]: [targetValue] },
                           }
                         : item,
                 ),
@@ -269,7 +267,6 @@ const QuestionWrapper = ({
             );
         }
     };
-    console.log(options, detailOptionList);
     return (
         <Wrapper>
             <TitleBlock>
@@ -279,7 +276,7 @@ const QuestionWrapper = ({
                 {type === 0 && (
                     <DefaultInput
                         type="text"
-                        value={form[cardIndex].etc}
+                        value={form[cardIndex].value[title]}
                         onChange={onChange}
                     />
                 )}
@@ -298,8 +295,7 @@ const QuestionWrapper = ({
                         </div>
                     ))}
 
-                {type !== 4 &&
-                    detailOptionList &&
+                {detailOptionList.length > 0 &&
                     detailOptionList.map((item, index) => (
                         <DetailOptionBox
                             key={index}

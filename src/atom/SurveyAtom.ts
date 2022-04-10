@@ -7,6 +7,38 @@ type SelectedTypes = {
     detailValue: { [name: string]: string[] };
     etc: string;
 };
+type BasicTypes = {
+    [index: string]: any;
+    customName: string;
+    phone: string;
+    email: string;
+    address: string;
+    building: string;
+    date: Date;
+    fee: string;
+    bedRoomCount: string;
+    restRoomCount: string;
+    salesArea: string;
+    actureArea: string;
+    callTime: string;
+};
+export const basicFormAtom = atom<BasicTypes>({
+    key: "basicForm",
+    default: {
+        customName: "",
+        phone: "",
+        email: "",
+        address: "",
+        building: "",
+        date: new Date(),
+        fee: "",
+        bedRoomCount: "",
+        restRoomCount: "",
+        salesArea: "",
+        actureArea: "",
+        callTime: "",
+    },
+});
 export const selectedFormAtom = atom<SelectedTypes[]>({
     key: "selectedForm",
     default: [],

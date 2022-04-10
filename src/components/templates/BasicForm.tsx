@@ -1,11 +1,26 @@
 import React from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { basicFormAtom } from "../../atom/SurveyAtom";
 import { requestForm } from "../../FormData/requestForm";
 import DefaultInput from "../atoms/DefaultInput";
 import DefaultSelect from "../atoms/DefaultSelect";
 import InputRow from "../molecures/InputRow";
 
 const BasicForm = () => {
+    const [basicState, setBasicState] = useRecoilState(basicFormAtom);
+    const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setBasicState(prev => {
+            return { ...prev, [name]: value };
+        });
+    };
+    const onSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const { name, value } = e.target;
+        setBasicState(prev => {
+            return { ...prev, [name]: value };
+        });
+    };
     return (
         <Wrapper>
             {requestForm.map(item =>
@@ -18,9 +33,8 @@ const BasicForm = () => {
                         {item.type === "input" && (
                             <DefaultInput
                                 {...item.props}
-                                onChange={(
-                                    e: React.ChangeEvent<HTMLInputElement>,
-                                ) => console.log(e.target.value)}
+                                onChange={onChange}
+                                value={basicState[item.props.name]}
                             />
                         )}
                     </InputRow>
@@ -32,9 +46,8 @@ const BasicForm = () => {
                     >
                         <DefaultSelect
                             {...item.props}
-                            onChange={(
-                                e: React.ChangeEvent<HTMLSelectElement>,
-                            ) => console.log(e.target.value)}
+                            onChange={onSelectChange}
+                            value={basicState[item.props.name]}
                         />
                     </InputRow>
                 ),
