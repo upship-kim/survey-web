@@ -1,6 +1,7 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { basicFormAtom, selectedFormAtom } from "../../atom/SurveyAtom";
+import { requestForm } from "../../FormData/requestForm";
 import { client } from "../../lib/client";
 import Container from "../atoms/Container";
 import BlockTitle from "../molecures/BlockTitle";
@@ -17,14 +18,25 @@ const SurveyPage = () => {
 
     const onSubmit = async (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
-
-        try {
-            await client.post("/api/survey", {
-                basicInfo: basicState,
-                selectedInfo: selectedState,
-            });
-        } catch (e) {
-            console.log(e);
+        const isVaild = Object.entries(basicState).find(
+            item => item[1] === "" || item[1] === "선택",
+        );
+        if (isVaild !== undefined) {
+            alert(
+                `${
+                    requestForm.find(item => item.props.name === isVaild[0])
+                        ?.title
+                } 를 입력해주세요`,
+            );
+        } else {
+            try {
+                await client.post("/api/survey", {
+                    basicInfo: basicState,
+                    selectedInfo: selectedState,
+                });
+            } catch (e) {
+                console.log(e);
+            }
         }
         console.log(basicState, selectedState);
     };

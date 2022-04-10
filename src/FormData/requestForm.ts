@@ -1,5 +1,3 @@
-import { basicFormAtom } from "./../atom/SurveyAtom";
-import { useRecoilValue } from "recoil";
 import moment from "moment";
 export const requestForm = [
     {
@@ -135,6 +133,8 @@ export const requestForm = [
         isRequire: true,
         type: "input",
         props: {
+            type: "number",
+            min: 0,
             name: "salesArea",
             placeholder: "단위: 평형",
         },
@@ -145,6 +145,8 @@ export const requestForm = [
         isRequire: true,
         type: "input",
         props: {
+            type: "number",
+            min: 0,
             name: "actureArea",
             placeholder: "단위: 평형",
         },
