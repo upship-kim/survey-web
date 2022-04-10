@@ -5,8 +5,6 @@ import { client } from "../../lib/client";
 import { CardTypes } from "../../types/SelectTypes";
 import DefaultButton from "../atoms/DefaultButton";
 import DefaultText from "../atoms/DefaultText";
-import DefaultTitle from "../atoms/DefaultTitle";
-import PlusMinusIcon from "../atoms/PlusMinusIcon";
 import BlockTitle from "../molecures/BlockTitle";
 import Header from "../molecures/Header";
 import SurveyCreator from "../templates/SurveyCreator";

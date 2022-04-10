@@ -116,13 +116,7 @@ const FirstProcess = styled(CommonDiv)`
     border-radius: 20px;
     background: white;
 `;
-const StyledRow = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    flex: 0.3;
-    padding: 12px 0;
-`;
+
 const AddButtonRow = styled.div`
     display: flex;
     flex-direction: row;
