@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
+import { isLoginAtom } from "../../atom/SurveyAtom";
 import { cardInitForm } from "../../FormData/initData";
 import { client } from "../../lib/client";
 import { CardTypes } from "../../types/SelectTypes";
@@ -16,7 +18,14 @@ const AdminPage = () => {
     const [form, setForm] = useState<CardTypes>(cardInitForm);
     const [itemId, setItemId] = useState<number | null>(null);
     const [mode, setMode] = useState<ModeType>("read");
+    const setIsLogin = useSetRecoilState<boolean>(isLoginAtom);
 
+    const notLogin = (e: any) => {
+        if (e.response.status === 401) {
+            setIsLogin(false);
+            alert("로그인이 필요합니다");
+        }
+    };
     useEffect(() => {
         fetchList();
     }, []);
@@ -40,8 +49,8 @@ const AdminPage = () => {
             if (success) {
                 fetchList();
             }
-        } catch (error) {
-            console.log(error);
+        } catch (e) {
+            notLogin(e);
         }
     };
     const fetchUpdateForm = async () => {
@@ -50,8 +59,8 @@ const AdminPage = () => {
             const { success, message } = response.data;
             alert(message);
             if (success) fetchList();
-        } catch (error) {
-            console.log(error);
+        } catch (e: any) {
+            notLogin(e);
         }
     };
     const fetchDeleteForm = async (id: number) => {
@@ -66,8 +75,8 @@ const AdminPage = () => {
             } else {
                 return;
             }
-        } catch (error) {
-            console.log(error);
+        } catch (e) {
+            notLogin(e);
         }
     };
 
@@ -210,7 +219,8 @@ const Container = styled.div`
 
 const SurveyListBox = styled.div`
     width: 100%;
-    height: 40vh;
+    min-height: 40vh;
+    margin-bottom: 2rem;
 `;
 const ButtonRow = styled.div`
     display: flex;

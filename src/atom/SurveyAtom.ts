@@ -1,3 +1,4 @@
+import moment from "moment";
 import { atom } from "recoil";
 type SelectedTypes = {
     [index: number]: any;
@@ -14,7 +15,7 @@ type BasicTypes = {
     email: string;
     address: string;
     building: string;
-    date: Date;
+    date: string;
     fee: string;
     bedRoomCount: string;
     restRoomCount: string;
@@ -30,7 +31,7 @@ export const basicFormAtom = atom<BasicTypes>({
         email: "",
         address: "",
         building: "",
-        date: new Date(),
+        date: moment(new Date()).format("yyyy-MM-DD"),
         fee: "",
         bedRoomCount: "",
         restRoomCount: "",
@@ -52,4 +53,9 @@ export const selectedTitleAtom = atom<string | null>({
 export const selectedCardIndexAtom = atom<number | null>({
     key: "selectedCardIndex",
     default: null,
+});
+
+export const isLoginAtom = atom<boolean>({
+    key: "isLoginAtomKey",
+    default: false,
 });

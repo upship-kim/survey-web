@@ -11,8 +11,6 @@ import SelectForm from "../templates/SelectForm";
 import SubmitForm from "../templates/SubmitForm";
 
 const SurveyPage = () => {
-    // const form = useRef<any>(null);
-
     const basicState = useRecoilValue(basicFormAtom);
     const selectedState = useRecoilValue(selectedFormAtom);
 
@@ -30,15 +28,20 @@ const SurveyPage = () => {
             );
         } else {
             try {
-                await client.post("/api/survey", {
+                const response = await client.post("/api/survey", {
                     basicInfo: basicState,
                     selectedInfo: selectedState,
                 });
+                if (response.data.success) {
+                    alert(response.data.message);
+                } else {
+                    alert("잠시 후 다시 시도해주세요");
+                }
             } catch (e) {
+                alert("잠시 후 다시 시도해주세요");
                 console.log(e);
             }
         }
-        console.log(basicState, selectedState);
     };
 
     return (
