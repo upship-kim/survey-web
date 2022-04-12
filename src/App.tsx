@@ -8,7 +8,6 @@ import AdminLoginPage from "./components/pages/AdminLoginPage";
 import AdminPage from "./components/pages/AdminPage";
 import SurveyPage from "./components/pages/SurveyPage";
 import { client } from "./lib/client";
-import Test from "./Test";
 
 function App() {
     const [isLogin, setIsLogin] = useRecoilState<boolean>(isLoginAtom);
@@ -35,8 +34,8 @@ function App() {
     };
     return (
         <Routes>
-            {/* <Route path="/" element={<SurveyPage />} /> */}
-            <Route path="/" element={<Test />} />
+            <Route path="/" element={<SurveyPage />} />
+
             <Route
                 path="/admin"
                 element={isLogin ? <AdminPage /> : <AdminLoginPage />}
