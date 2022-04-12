@@ -64,8 +64,9 @@ export const requestForm = [
         props: {
             type: "date",
             name: "date",
-            value: moment().format("yyyy-MM-DD"),
-            min: moment().format("yyyy-MM-DD"),
+            value: moment(new Date()).format("yyyy-MM-DD"),
+            min: moment(new Date()).format("yyyy-MM-DD"),
+            // min: moment().format("YYYY-MM-DD"),
         },
     },
     {
