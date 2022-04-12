@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isLoginAtom } from "../../atom/SurveyAtom";
@@ -20,13 +19,11 @@ const AdminPage = () => {
     const [itemId, setItemId] = useState<number | null>(null);
     const [mode, setMode] = useState<ModeType>("read");
     const setIsLogin = useSetRecoilState<boolean>(isLoginAtom);
-    const navigation = useNavigate();
 
     const notLogin = (e: any) => {
         if (e.response.status === 401) {
             setIsLogin(false);
             alert("로그인이 필요합니다");
-            navigation("/admin");
         }
     };
     useEffect(() => {

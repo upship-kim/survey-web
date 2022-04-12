@@ -11,8 +11,6 @@ import SelectForm from "../templates/SelectForm";
 import SubmitForm from "../templates/SubmitForm";
 
 const SurveyPage = () => {
-    // const form = useRef<any>(null);
-
     const basicState = useRecoilValue(basicFormAtom);
     const selectedState = useRecoilValue(selectedFormAtom);
 
