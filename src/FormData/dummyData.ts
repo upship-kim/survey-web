@@ -43,6 +43,7 @@ export const rowDatas = [
                                 name: "아이스박스",
                                 img: "",
                             },
+
                             {
                                 name: "양문형 냉장고",
                                 img: "",
