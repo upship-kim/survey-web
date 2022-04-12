@@ -53,3 +53,8 @@ export const selectedCardIndexAtom = atom<number | null>({
     key: "selectedCardIndex",
     default: null,
 });
+
+export const isLoginAtom = atom<boolean>({
+    key: "isLoginAtomKey",
+    default: false,
+});
