@@ -92,7 +92,7 @@ const DetailOptionBlock = styled.div`
     padding: 1rem 0;
     align-items: flex-start;
     flex-direction: row;
-    background-color: #eeeeee;
+    background-color: #c7c1b7;
     border-radius: 10px;
     padding: 1rem;
     flex-wrap: wrap;

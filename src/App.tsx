@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
 import "./App.css";
@@ -12,6 +12,7 @@ import { client } from "./lib/client";
 function App() {
     const [isLogin, setIsLogin] = useRecoilState<boolean>(isLoginAtom);
     const location = useLocation();
+    const navigate = useNavigate();
     const { pathname } = location;
 
     useEffect(() => {
@@ -30,16 +31,17 @@ function App() {
             }
         } catch (e) {
             setIsLogin(false);
+            navigate("/login");
         }
     };
     return (
         <Routes>
             <Route path="/" element={<SurveyPage />} />
-
-            <Route
-                path="/admin"
-                element={isLogin ? <AdminPage /> : <AdminLoginPage />}
-            />
+            {isLogin ? (
+                <Route path="/admin" element={<AdminPage />} />
+            ) : (
+                <Route path="/login" element={<AdminLoginPage />} />
+            )}
         </Routes>
     );
 }

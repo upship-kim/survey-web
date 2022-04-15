@@ -17,6 +17,7 @@ const StyledContainer = styled.div`
     height: 100%;
     overflow: hidden;
     justify-content: center;
+    background-color: #fff8ee;
 `;
 const StyledWrapper = styled.div`
     display: flex;

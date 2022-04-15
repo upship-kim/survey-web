@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { isLoginAtom } from "../../atom/SurveyAtom";
@@ -13,6 +14,7 @@ type loginTypes = {
 const AdminLoginPage = () => {
     const [state, setState] = useState<loginTypes>({ id: "", password: "" });
     const setIsLogin = useSetRecoilState<boolean>(isLoginAtom);
+    const navigate = useNavigate();
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setState({ ...state, [name]: value });
@@ -23,6 +25,7 @@ const AdminLoginPage = () => {
         try {
             const response = await client.post("api/auth/login", state);
             if (response.data.id) {
+                navigate("/admin");
                 setIsLogin(true);
             }
         } catch (e: any) {

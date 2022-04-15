@@ -20,7 +20,7 @@ const StyledHeader = styled.div`
     justify-content: center;
     align-items: center;
     height: 20vh;
-    background: linear-gradient(0deg, #ffffff 0%, #f5f5dc 100%);
+    background: #fff8ee;
 
     width: 100%;
     margin: 0 0 4rem 0;
