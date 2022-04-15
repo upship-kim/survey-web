@@ -6,11 +6,23 @@ interface LabelProps {
     size?: sizeType;
     bold?: boolean;
     htmlFor?: string;
+    color?: string;
 }
-const DefaultLabel = ({ text, size = "medium", bold, htmlFor }: LabelProps) => {
+const DefaultLabel = ({
+    text,
+    size = "medium",
+    bold,
+    htmlFor,
+    color,
+}: LabelProps) => {
     return (
         <Wrapper>
-            <StyledLabel size={size} bold={bold} htmlFor={htmlFor}>
+            <StyledLabel
+                size={size}
+                bold={bold}
+                htmlFor={htmlFor}
+                color={color}
+            >
                 {text}
             </StyledLabel>
         </Wrapper>
@@ -33,7 +45,8 @@ const StyledLabel = styled.label<{ size: sizeType; bold?: boolean }>`
             : props.size === "small"
             ? "0.8rem"
             : "1rem"};
-    color: #7a7a7a;
+    color: ${props => (props.color === "point" ? "#615C53" : "#7a7a7a")};
+    padding-top: 5px;
     cursor: pointer;
     width: max-content;
 

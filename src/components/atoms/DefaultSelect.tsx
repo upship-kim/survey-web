@@ -34,6 +34,7 @@ const StyledSelect = styled.select<SelectHTMLAttributes<HTMLSelectElement>>`
     border: 0px solid gray;
     border-bottom: 1px solid #acacac;
     outline: none;
+    background-color: #fff8ee;
 
     &:focus {
         border-bottom: 2px solid #3f59cf;

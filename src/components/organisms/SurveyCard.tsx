@@ -52,13 +52,13 @@ const StyledCard = styled.div<{ isActive: boolean }>`
     overflow: hidden;
     background-color: #f5f5dc;
     margin: 0.4rem 0;
-    border: ${({ isActive }) => (isActive ? "1px solid #d8a23a" : "0px")};
+    border: ${({ isActive }) => (isActive ? "1px solid #4E4637" : "0px")};
     cursor: pointer;
 
     &:hover {
-        border: 1px solid #d8a23a;
+        border: 1px solid #b98900;
         .cube {
-            background-color: #d8a23a;
+            background-color: #b98900;
         }
     }
     @media screen and (max-width: 768px) {
@@ -75,7 +75,8 @@ const IndexBlock = styled.div<{ isActive: boolean }>`
     height: 2rem;
     padding: 1rem;
     width: 3rem;
-    background-color: ${({ isActive }) => (isActive ? "#d8a23a" : "#8eb3a2")};
+    font-weight: 800;
+    background-color: ${({ isActive }) => (isActive ? "#4E4637" : "#BDA887")};
 `;
 
 const TitleBlock = styled.div`

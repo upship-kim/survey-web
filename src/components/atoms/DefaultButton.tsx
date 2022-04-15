@@ -31,7 +31,7 @@ const Styledbutton = styled.div<{ type: buttonTypes }>`
         type === "cancle"
             ? "#eeeeee"
             : type === "submit"
-            ? "#204669"
-            : "#8eb3a2"};
-    color: ${({ type }) => (type === "cancle" ? "gray" : "#eeeeee")};
+            ? "#4E4637"
+            : "#83B5A6"};
+    color: ${({ type }) => (type === "cancle" ? "gray" : "#FFF8EE")};
 `;

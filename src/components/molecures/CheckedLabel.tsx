@@ -62,7 +62,7 @@ const CheckedLabel = ({
         <Wrapper htmlFor={name}>
             <ItemBox>
                 {CheckComponent()}
-                <DefaultLabel text={name} htmlFor={name} />
+                <DefaultLabel text={name} htmlFor={name} color="point" />
             </ItemBox>
             {img !== "" && img && (
                 <Img src={img} alt="img" loading="lazy" decoding="async" />
@@ -80,7 +80,7 @@ const Wrapper = styled.label`
     align-items: flex-start;
     width: max-content;
     padding: 6px;
-    border: 2px solid #eeeeee;
+    border: 2px solid #c7c1b7;
     border-radius: 70px;
     cursor: pointer;
 
@@ -90,6 +90,7 @@ const Wrapper = styled.label`
 `;
 const ItemBox = styled.div`
     display: flex;
+    align-items: center;
     flex-direction: row;
     height: max-content;
     width: 100%;
@@ -102,6 +103,6 @@ const ItemBox = styled.div`
 const Img = styled.img`
     margin: 10px;
     height: 6rem;
-    border: 0px;
+    border: 0px solid #c7c1b7;
     border-radius: 20px;
 `;
