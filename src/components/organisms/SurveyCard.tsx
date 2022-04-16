@@ -40,7 +40,7 @@ const SurveyCard = ({
     );
 };
 
-export default SurveyCard;
+export default React.memo(SurveyCard);
 
 const StyledCard = styled.div<{ isActive: boolean }>`
     display: flex;

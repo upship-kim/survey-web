@@ -25,7 +25,7 @@ const DropBox = ({ data, cardIndex }: LocalProps) => {
     );
 };
 
-export default DropBox;
+export default React.memo(DropBox);
 
 const Wrapper = styled.div`
     display: flex;
